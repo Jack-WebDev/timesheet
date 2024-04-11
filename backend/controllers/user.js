@@ -86,8 +86,9 @@ const userRegister = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
+	const { id } = req.params;
 	try {
-		const user = await db.select("*").from("users");
+		const user = await db.select("*").from("users").where({ id: id });
 
 		res.status(200).json(user);
 	} catch (error) {
@@ -97,13 +98,18 @@ const getUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
 	const { id } = req.params;
-	const { surname } = req.body;
-
-	console.log(id, surname);
+	const { name, surname,password, role } = req.body;
 
 	try {
+		if (!validator.isStrongPassword(password)) {
+			return res.status(309).json({ message: "Password not strong enough" });
+		}
+		const hashedPassword = await hashPassword(password);
 		const updated = await db("users").where({ id }).update({
+			name:name,
 			surname: surname,
+			password: hashedPassword,
+			role:role
 		});
 
 		res.status(200).json(updated);
@@ -116,7 +122,7 @@ const deleteUser = async (req, res) => {
 	const { id } = req.params;
 
 	try {
-		const updated = await db("users").where({ id }).delete();
+		const updated = await db("users").where({ id:id }).del();
 
 		res.status(200).json(updated);
 	} catch (error) {

@@ -9,7 +9,7 @@ const {
 const express = require("express");
 const userRouter = express.Router();
 
-userRouter.get("/", getUser);
+userRouter.get("/:id", getUser);
 userRouter.post("/login", userLogin);
 userRouter.post("/register", userRegister);
 userRouter.put("/:id", updateUser);

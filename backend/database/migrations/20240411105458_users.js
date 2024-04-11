@@ -8,8 +8,8 @@ exports.up = function (knex) {
 		t.string("email").unique().notNullable();
 		t.string("name").notNullable();
 		t.string("surname").notNullable();
-		t.string("password").notNullable();
-		t.string("role").notNullable();
+		t.string("password").nullable();
+		t.string("role").notNullable().defaultTo("Employee");
 		t.timestamp("createdAt").defaultTo(knex.fn.now());
 	});
 };

@@ -27,6 +27,20 @@ const users = [
 		password: "camey@123",
 		role: "Manager",
 	},
+	{
+		name: "Isaac",
+		surname: "Fighter",
+		email: "isaac@ndt.co.za",
+		password: "",
+		role: "Employee",
+	},
+	{
+		name: "Jabu",
+		surname: "Mbele",
+		email: "jabu@ndt.co.za",
+		password: "",
+		role: "Manager",
+	},
 ];
 
 module.exports = users;

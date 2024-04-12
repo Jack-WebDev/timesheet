@@ -1,4 +1,4 @@
-const users = require("../../data/seed");
+const users = require("../../data/userSeed");
 const bcrypt = require("bcryptjs");
 
 /**
@@ -15,7 +15,7 @@ exports.seed = async function (knex) {
 	for (const user of users) {
 		const newUser = {
 			...user,
-			password: await bcrypt.hash(user.password, salt),
+			Password: await bcrypt.hash(user.Password, salt),
 		};
 		userList.push(newUser);
 	}

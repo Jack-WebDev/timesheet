@@ -5,11 +5,11 @@
 exports.up = function (knex) {
 	return knex.schema.createTable("users", (t) => {
 		t.uuid("id").primary().defaultTo(knex.fn.uuid());
-		t.string("email").unique().notNullable();
-		t.string("name").notNullable();
-		t.string("surname").notNullable();
-		t.string("password").nullable();
-		t.string("role").notNullable().defaultTo("Employee");
+		t.string("Email").unique().notNullable();
+		t.string("Name").notNullable();
+		t.string("Surname").notNullable();
+		t.string("Password").nullable();
+		t.string("Role").notNullable().defaultTo("Employee");
 		t.timestamp("createdAt").defaultTo(knex.fn.now());
 	});
 };

@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button";
+import Dashboard from "./pages/admin/Dashboard";
 
 const App = () => {
 	return (
 		<div>
-			<Button>Click me</Button>
+			<Dashboard/>
 		</div>
 	);
 };

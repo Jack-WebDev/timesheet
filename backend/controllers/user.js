@@ -19,6 +19,7 @@ const userLogin = async (req, res) => {
 		const user = await db("users").select().where({ Email: email });
 
 		validUser = user[0];
+		console.log(validUser)
 
 		const isPasswordValid = await comparePassword(password, validUser.Password);
 
@@ -54,8 +55,8 @@ const userLogin = async (req, res) => {
 
 		res.json({
 			success: true,
-			role: validUser.role,
-			name: validUser.name,
+			role: validUser.Role,
+			name: validUser.Name,
 			refreshToken: refresh_token,
 			token: token,
 		});

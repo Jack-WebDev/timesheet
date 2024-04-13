@@ -18,8 +18,8 @@ import Timesheet from "./pages/employee/Timesheet.tsx"
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route index={true} path="/" element={<Login />} />
-      <Route path="/admin" element={<Dashboard />} />
+      <Route  path="/" element={<Login />} />
+      <Route index={true} path="/admin" element={<Dashboard />} />
       <Route path="/departments" element={<Departments />} />
       <Route path="/projects" element={<Projects />} />
       <Route path="/employees" element={<Users />} />

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {EditDialog} from "./EditDialog"
 import {AddDialog} from "./AddDialog"
-import {toast} from "react-toastify"
 
 
 type User = {

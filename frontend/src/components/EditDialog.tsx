@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 type User = {
 	id: string;
@@ -35,16 +36,22 @@ export function EditDialog({ id }: User) {
 	};
 
 	const handleSave = async () => {
-		const res = await axios.put(`api/users/${id}`, {
-			name,
-			surname,
-			email,
-			password,
-			department,
-			status,
-			role,
-		});
-		console.log(res);
+		try {
+			const res = await axios.put(`api/users/${id}`, {
+				name,
+				surname,
+				email,
+				password,
+				department,
+				status,
+				role,
+			});
+			console.log(res);
+		} catch (error) {
+			console.log(error)
+			toast.error("Error saving data")
+		}
+
 	};
 
 	return (

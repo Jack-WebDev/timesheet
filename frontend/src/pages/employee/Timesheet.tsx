@@ -38,10 +38,6 @@ const Timesheet = () => {
 								{selectedEndDate?.toLocaleDateString()}
 							</span>
 						</div>
-
-						<div className="total__hours">
-							<h2>Total Hours:</h2>
-						</div>
 					</div>
 					<Card />
 				</div>

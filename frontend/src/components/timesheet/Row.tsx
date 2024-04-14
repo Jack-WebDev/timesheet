@@ -1,44 +1,82 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-type RowData = {
-	name: string;
+interface RowFormData {
 	project: string;
+	task: string;
 	hours: number[];
-	totalHours: number;
-};
-
-interface RowProps {
-	rowData: RowData;
-	onRowUpdate: (updatedRow: RowData) => void;
 }
 
-const Row: React.FC<RowProps> = ({ rowData, onRowUpdate }) => {
-	const handleInputChange = (index: number, value: number) => {
-		const newHours = [...rowData.hours];
-		newHours[index] = value;
-		const total = newHours.reduce((acc, cur) => acc + cur, 0);
+const Row: React.FC = () => {
+	const [formData, setFormData] = useState<RowFormData>({
+		project: "",
+		task: "",
+		hours: [0, 0, 0, 0, 0],
+	});
 
-		// Update row data and trigger parent component update
-		const updatedRow = { ...rowData, hours: newHours, totalHours: total };
-		onRowUpdate(updatedRow);
+	const [projectNames, setProjectNames] = useState<string[]>([]);
+
+	console.log(projectNames);
+
+	useEffect(() => {
+		fetchProjectNames();
+	}, []);
+
+	const fetchProjectNames = async () => {
+		try {
+		  const response = await axios.get('/api/projects'); // Adjust the URL based on your backend API endpoint
+		  const projectNamesArray = response.data.map((project: { Project_Name: string; }) => project.Project_Name);
+		  setProjectNames(projectNamesArray);
+		} catch (error) {
+		  console.error('Error fetching project names:', error);
+		  // Handle error (e.g., show an error message)
+		}
+	  };
+
+	const calculateTotalHours = (): number => {
+		return formData.hours.reduce((total, hour) => total + hour, 0);
+	};
+
+	const handleProjectChange = (value: string) => {
+		setFormData({ ...formData, project: value });
+	};
+
+	const handleTaskChange = (value: string) => {
+		setFormData({ ...formData, task: value });
+	};
+
+	const handleHoursChange = (index: number, value: number) => {
+		const newHours = [...formData.hours];
+		newHours[index] = value;
+		setFormData({ ...formData, hours: newHours });
 	};
 
 	return (
-		<div className="row flex items-center justify-around">
-			<input type="text" value={rowData.name} placeholder="Enter your name" readOnly />
+		<div className="row-form">
+			<div>Project</div>
+			{/* Render project names in a dropdown */}
+			<select>
+				{projectNames.map((projectName, index) => (
+					<option key={index} value={projectName}>
+						{projectName}
+					</option>
+				))}
+			</select>
 			<input
 				type="text"
-				value={rowData.project}
-				placeholder="Enter your task"
+				value={formData.task}
+				onChange={(e) => handleTaskChange(e.target.value)}
+				placeholder="Task"
 			/>
-			{rowData.hours.map((hours, index) => (
+			{["Mon", "Tue", "Wed", "Thu", "Fri"].map((day, index) => (
 				<input
 					key={index}
-					type="text"
-					value={hours}
-					onChange={(e) => handleInputChange(index, parseInt(e.target.value))}
+					type="number"
+					value={formData.hours[index]}
+					onChange={(e) => handleHoursChange(index, parseInt(e.target.value))}
 				/>
 			))}
-			<span>{rowData.totalHours}</span>
+			<div>{calculateTotalHours()}</div>
 		</div>
 	);
 };

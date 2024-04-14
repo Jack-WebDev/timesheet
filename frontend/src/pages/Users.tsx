@@ -3,6 +3,7 @@ import { DataTable } from "../components/DataTable";
 import { Payment, columns } from "../components/Columns";
 import axios from "axios";
 import Layout from "@/components/Layout";
+import UserTable from "@/components/UserTable";
 
 // async function fetchData(): Promise<Payment[]> {
 // 	// Simulated API call or actual API call here
@@ -55,10 +56,14 @@ const Users = () => {
 	}, []);
 
 	return (
+		<>
 		<div className="relative">
 			<Layout />
-			{data.length > 0 && <DataTable columns={columns} data={data} />}
+			{/* {data.length > 0 && <DataTable columns={columns} data={data} />} */}
 		</div>
+
+		<UserTable/>
+		</>
 	);
 };
 

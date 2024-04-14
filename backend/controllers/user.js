@@ -94,7 +94,7 @@ const getUsers = async (req, res) => {
 	try {
 		const users = await db.select().from("users");
 
-		return res.status(200).json(users)
+		return res.status(200).json(users);
 	} catch (error) {
 		console.log(error);
 	}
@@ -113,7 +113,8 @@ const getUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
 	const { id } = req.params;
-	const { name, surname, password, role } = req.body;
+	const { name, surname, email, department,password, role, status } = req.body;
+	console.log(id,name, surname, email, department,password, role, status);
 
 	try {
 		if (!validator.isStrongPassword(password)) {
@@ -121,15 +122,18 @@ const updateUser = async (req, res) => {
 		}
 		const hashedPassword = await hashPassword(password);
 		const updated = await db("users").where({ id }).update({
-			name: name,
-			surname: surname,
-			password: hashedPassword,
-			role: role,
+			Name: name,
+			Surname: surname,
+			Email: email,
+			Password: hashedPassword,
+			Department: department,
+			Status: status,
+			Role: role,
 		});
 
-		res.status(200).json(updated);
+		return res.status(200).json(updated);
 	} catch (error) {
-		console.log(error);
+		return res.status(500).json({error: error})
 	}
 };
 
@@ -149,7 +153,7 @@ const logOutUser = async (req, res) => {
 	res.clearCookie("jwt");
 	res.clearCookie("refreshToken");
 	res.status(200).json({ message: "User Logged out!" });
-  };
+};
 
 module.exports = {
 	userLogin,
@@ -158,5 +162,5 @@ module.exports = {
 	getUser,
 	updateUser,
 	deleteUser,
-	logOutUser
+	logOutUser,
 };

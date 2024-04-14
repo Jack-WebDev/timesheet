@@ -28,41 +28,48 @@ const createDepartment = async (req, res) => {
 	}
 };
 
-
-const getDepartment = async (req,res) => {
-	const {id} = req.params
-
-	try {
-		const getDepart = await db("departments").select().where({id:id})
-		res.status(200).json(getDepart)	
-	} catch (error) {
-		console.log(error)
-	}
-}
-
-
-const updateDepartment = async (req,res) => {
-	const {id} = req.params
-	const {Department_Name} = req.body
+const getDepartment = async (req, res) => {
+	const { id } = req.params;
 
 	try {
-		const getDepart = await db("departments").select().where({id:id}).update({
-			Department_Name: Department_Name
-		})
-		res.status(200).json(getDepart)	
+		const getDepart = await db("departments").select().where({ id: id });
+		res.status(200).json(getDepart);
 	} catch (error) {
-		console.log(error)
+		console.log(error);
 	}
-}
+};
 
-const deleteDepartment = async (req,res) => {
-	const {id} = req.params
+const updateDepartment = async (req, res) => {
+	const { id } = req.params;
+	const { Department_Name } = req.body;
 
 	try {
-		const getDepart = await db("departments").select().where({id:id}).del()
-		res.status(200).json("deleted")	
+		const getDepart = await db("departments")
+			.select()
+			.where({ id: id })
+			.update({
+				Department_Name: Department_Name,
+			});
+		res.status(200).json(getDepart);
 	} catch (error) {
-		console.log(error)
+		console.log(error);
 	}
-}
-module.exports = { getDepartments, createDepartment,getDepartment,updateDepartment,deleteDepartment };
+};
+
+const deleteDepartment = async (req, res) => {
+	const { id } = req.params;
+
+	try {
+		const getDepart = await db("departments").select().where({ id: id }).del();
+		res.status(200).json("deleted");
+	} catch (error) {
+		console.log(error);
+	}
+};
+module.exports = {
+	getDepartments,
+	createDepartment,
+	getDepartment,
+	updateDepartment,
+	deleteDepartment,
+};

@@ -20,7 +20,7 @@ const formSchema = z.object({
 	password: z.string(),
 });
 
-export function LoginForm() {
+export function RegisterForm() {
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -31,7 +31,7 @@ export function LoginForm() {
 
 	async function onSubmit(values: z.infer<typeof formSchema>) {
 		try {
-			const res = await axios.post("api/users/login", { ...values });
+			const res = await axios.post("api/users/register", { ...values });
 			console.log(res);
 		} catch (error) {
 			console.log(error);
@@ -61,13 +61,13 @@ export function LoginForm() {
 						<FormItem>
 							<FormLabel>Password</FormLabel>
 							<FormControl>
-								<Input placeholder="Enter your password" {...field} />
+								<Input placeholder="Enter your password" {...field}/>
 							</FormControl>
 							<FormMessage />
 						</FormItem>
 					)}
 				/>
-				<Button type="submit">Let Me In</Button>
+				<Button type="submit" className="register_btn w-full">Let's Go!</Button>
 			</form>
 		</Form>
 	);

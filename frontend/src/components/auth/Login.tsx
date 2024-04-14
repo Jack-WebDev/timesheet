@@ -1,4 +1,3 @@
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -13,6 +12,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
+import { useState } from "react";
 
 const formSchema = z.object({
 	email: z.string().min(2, {
@@ -21,7 +22,9 @@ const formSchema = z.object({
 	password: z.string(),
 });
 
-export function RegisterForm() {
+export function LoginForm() {
+	const [authenticated, setAuthenticated] = useState(false);
+	const [role, setRole] = useState("");
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -32,10 +35,26 @@ export function RegisterForm() {
 
 	async function onSubmit(values: z.infer<typeof formSchema>) {
 		try {
-			const res = await axios.post("api/users/register", { ...values });
-			console.log(res);
+			const res = await axios.post("api/users/login", { ...values });
+
+			const { success, role, name, token } = res.data;
+
+			console.log(success, role, name, token);
+
+			if (success) {
+				setAuthenticated(true);
+				setRole(role);
+				localStorage.setItem("user", name);
+			}
 		} catch (error) {
 			console.log(error);
+		}
+	}
+	if (authenticated) {
+		if (role === "Employee" || role === "Manager") {
+			return <Navigate to="/employee" />;
+		} else if (role === "Admin") {
+			return <Navigate to="/admin" />;
 		}
 	}
 
@@ -68,9 +87,9 @@ export function RegisterForm() {
 						</FormItem>
 					)}
 				/>
-				<Button type="submit">Let's Go!</Button>
-
-                <h3>or else, Login </h3>
+				<Button type="submit" className="login_btn w-full">
+					Let Me In
+				</Button>
 			</form>
 		</Form>
 	);

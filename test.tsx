@@ -22,9 +22,9 @@ const getUsers = async () => {
 	}
 };
 
-// useEffect(() => {
-// 	getUsers();
-// }, []);
+useEffect(() => {
+	getUsers();
+}, []);
 
 const handleDelete = async () => {
 	try {

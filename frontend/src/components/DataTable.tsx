@@ -10,11 +10,10 @@ import {
 	useReactTable,
 	ColumnFiltersState,
 	getFilteredRowModel,
-  VisibilityState,
+	VisibilityState,
 } from "@tanstack/react-table";
 
 import { Input } from "@/components/ui/input";
-
 
 import {
 	Table,
@@ -40,10 +39,9 @@ export function DataTable<TData, TValue>({
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
 		[]
 	);
-  const [columnVisibility, setColumnVisibility] =
-  React.useState<VisibilityState>({})
-  const [rowSelection, setRowSelection] = React.useState({})
-
+	const [columnVisibility, setColumnVisibility] =
+		React.useState<VisibilityState>({});
+	const [rowSelection, setRowSelection] = React.useState({});
 
 	const table = useReactTable({
 		data,
@@ -54,14 +52,14 @@ export function DataTable<TData, TValue>({
 		getSortedRowModel: getSortedRowModel(),
 		onColumnFiltersChange: setColumnFilters,
 		getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: setRowSelection,
-    state: {
-      sorting,
-      columnFilters,
-      columnVisibility,
-      rowSelection,
-    },
+		onColumnVisibilityChange: setColumnVisibility,
+		onRowSelectionChange: setRowSelection,
+		state: {
+			sorting,
+			columnFilters,
+			columnVisibility,
+			rowSelection,
+		},
 	});
 
 	return (
@@ -69,13 +67,15 @@ export function DataTable<TData, TValue>({
 			<div className="flex items-center py-4 justify-between">
 				<Input
 					placeholder="Filter emails..."
-					value={(table.getColumn("employee")?.getFilterValue() as string) ?? ""}
+					value={
+						(table.getColumn("Name")?.getFilterValue() as string) ?? ""
+					}
 					onChange={(event) =>
-						table.getColumn("employee")?.setFilterValue(event.target.value)
+						table.getColumn("Name")?.setFilterValue(event.target.value)
 					}
 					className="w-1/2"
 				/>
-				<DialogDemo/>
+				<DialogDemo />
 			</div>
 			<div className="rounded-md border">
 				<Table>
@@ -127,7 +127,6 @@ export function DataTable<TData, TValue>({
 						)}
 					</TableBody>
 				</Table>
-
 			</div>
 		</div>
 	);

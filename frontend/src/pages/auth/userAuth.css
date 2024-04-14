@@ -1,0 +1,38 @@
+
+.tabs__header {
+    background-color: rgba(221, 167, 58, 0.3);
+    border-radius: 3rem;
+}
+
+.login_tab[data-state="active"], .register_tab[data-state="active"] {
+    border: none;
+    background-color: #DDA83A;
+    border-radius: 4rem;
+    color: #FFF;
+}
+
+.login_btn, .register_btn {
+    background-color: #DDA83A;
+    color: #FFF;
+    border: none;
+    border-radius: .5rem;
+}
+
+.form__container {
+	/* border: 2px solid #000; */
+	border-radius: 20px;
+	padding: 4rem;
+	box-shadow: 1px 1px 10px #000;
+}
+
+input {
+    border-radius: 2rem;
+}
+
+.left__column {
+	width: 50%;
+}
+
+img {
+	width: 100%;
+}

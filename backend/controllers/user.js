@@ -19,7 +19,7 @@ const userLogin = async (req, res) => {
 		const user = await db("users").select().where({ Email: email });
 
 		validUser = user[0];
-		console.log(validUser)
+		console.log(validUser);
 
 		const isPasswordValid = await comparePassword(password, validUser.Password);
 
@@ -90,6 +90,16 @@ const userRegister = async (req, res) => {
 	}
 };
 
+const getUsers = async (req, res) => {
+	try {
+		const users = await db.select().from("users");
+
+		return res.status(200).json(users)
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 const getUser = async (req, res) => {
 	const { id } = req.params;
 	try {
@@ -135,4 +145,18 @@ const deleteUser = async (req, res) => {
 	}
 };
 
-module.exports = { userLogin, userRegister, getUser, updateUser, deleteUser };
+const logOutUser = async (req, res) => {
+	res.clearCookie("jwt");
+	res.clearCookie("refreshToken");
+	res.status(200).json({ message: "User Logged out!" });
+  };
+
+module.exports = {
+	userLogin,
+	userRegister,
+	getUsers,
+	getUser,
+	updateUser,
+	deleteUser,
+	logOutUser
+};

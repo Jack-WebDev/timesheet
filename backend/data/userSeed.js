@@ -4,6 +4,8 @@ const users = [
 		Surname: "Mabaso",
 		Email: "jack@ndt.co.za",
 		Password: "jack@123",
+		Department: "H.R",
+		Status: "Permanent",
 		Role: "Admin",
 	},
 	{
@@ -11,6 +13,8 @@ const users = [
 		Surname: "Attridge",
 		Email: "james@ndt.co.za",
 		Password: "james@123",
+		Department: "I.T",
+		Status: "Permanent",
 		Role: "Employee",
 	},
 	{
@@ -18,6 +22,8 @@ const users = [
 		Surname: "Capstick",
 		Email: "hernando@ndt.co.za",
 		Password: "hernando@123",
+		Department: "H.R",
+		Status: "Intern",
 		Role: "Employee",
 	},
 	{
@@ -25,6 +31,8 @@ const users = [
 		Surname: "Capstick",
 		Email: "camey@ndt.co.za",
 		Password: "camey@123",
+		Department: "I.T",
+		Status: "Permanent",
 		Role: "Manager",
 	},
 	{
@@ -32,6 +40,8 @@ const users = [
 		Surname: "Fighter",
 		Email: "isaac@ndt.co.za",
 		Password: "",
+		Department: "I.T",
+		Status: "Contract",
 		Role: "Employee",
 	},
 	{
@@ -39,6 +49,8 @@ const users = [
 		Surname: "Mbele",
 		Email: "jabu@ndt.co.za",
 		Password: "",
+		Department: "I.T",
+		Status: "Contract",
 		Role: "Manager",
 	},
 ];

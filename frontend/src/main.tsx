@@ -14,13 +14,13 @@ import Departments from "./pages/Departments.tsx";
 import Projects from "./pages/Projects.tsx";
 import Users from "./pages/Users.tsx";
 import Timesheet from "./pages/employee/Timesheet.tsx";
-import Logout from "./components/auth/Logout.tsx";
+// import Logout from "./components/auth/Logout.tsx";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path="/" element={<App />}>
 			<Route index={true} path="/" element={<Login />} />
-			<Route path="/logout" element={<Logout/>}/>
+			{/* <Route path="/logout" element={<Logout />} /> */}
 			<Route path="/admin" element={<Dashboard />} />
 			<Route path="/departments" element={<Departments />} />
 			<Route path="/projects" element={<Projects />} />
@@ -32,6 +32,6 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
-		<RouterProvider router={router} />
+			<RouterProvider router={router} />
 	</React.StrictMode>
 );

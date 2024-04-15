@@ -52,7 +52,7 @@ const Row: React.FC = () => {
 	};
 
 	return (
-		<div className="row-form">
+		<div className="row-form flex items-center justify-around">
 			<div>Project</div>
 			{/* Render project names in a dropdown */}
 			<select>

@@ -35,20 +35,20 @@ const userLogin = async (req, res) => {
 
 		res.cookie("jwt", token, {
 			httpOnly: true,
-			maxAge: 15 * 1000,
+			maxAge: 60 * 60 * 1000,
 			sameSite: "strict",
 		});
 
 		const refresh_token = jwt.sign(
 			{ id: validUser.id, role: validUser.role },
 			"khkjhdkgeq",
-			{ expiresIn: "30d" }
+			{ expiresIn: "1d" }
 		);
 
 		res.cookie("refreshToken", refresh_token, {
 			httpOnly: true,
 			sameSite: "strict",
-			maxAge: 30 * 24 * 60 * 60 * 1000,
+			maxAge: 24 * 60 * 60 * 1000,
 		});
 
 		saveRefreshToken(db, refresh_token);
@@ -176,7 +176,7 @@ const deleteUser = async (req, res) => {
 const logOutUser = async (req, res) => {
 	res.clearCookie("jwt");
 	res.clearCookie("refreshToken");
-	res.status(200).json({ message: "User Logged out!" });
+	return res.status(200).json({ message: "User Logged out!" });
 };
 
 module.exports = {

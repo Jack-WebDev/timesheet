@@ -17,7 +17,7 @@ userRouter.post("/",createUser)
 
 userRouter.post("/login", userLogin);
 userRouter.post("/register", userRegister);
-userRouter.post("logout", logOutUser)
+userRouter.post("/logout", logOutUser)
 
 userRouter.get("/:id", getUser);
 userRouter.put("/:id", updateUser);

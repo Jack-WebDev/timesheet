@@ -8,6 +8,8 @@ import {
 	FaDoorOpen,
 } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import Cookies from "js-cookie";
+
 
 import {
 	Popover,
@@ -16,17 +18,26 @@ import {
 } from "@/components/ui/popover";
 
 const Layout = () => {
+
+	const handleLogout = async () => {
+	
+		Cookies.remove("refreshToken");
+		localStorage.clear();
+	
+	
+		window.location.href = "/";
+	};
 	return (
 		<div className="relative">
 			<header className="header flex justify-around items-center py-4">
-				<h1>Hello Jack</h1>
+				<h1>Welcome to your timesheet dashboard</h1>
 				<div className="profile flex items-center gap-x-3">
 					<Popover>
 						<PopoverTrigger className="flex items-center gap-4">
-							Jack <FaChevronDown />
+							Me <FaChevronDown />
 						</PopoverTrigger>
 						<PopoverContent className="flex items-center gap-4 w-fit">
-							<NavLink to={"/"}>
+							<NavLink to={"/"} onClick={handleLogout}>
 								Log Out <FaDoorOpen />
 							</NavLink>
 						</PopoverContent>

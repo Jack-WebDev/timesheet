@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { FaPlusCircle } from "react-icons/fa";
 
 type Department = {
 	id: string;
@@ -54,7 +55,7 @@ export function AddProject() {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button variant="outline">ADD</Button>
+			<Button className="rounded-xl bg-[#DDA83A] text-white gap-x-4 hover:bg-[#DDA83A]"><FaPlusCircle/>Add New Project</Button>
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-[425px]">
 				<DialogHeader>
@@ -68,7 +69,7 @@ export function AddProject() {
 						<Input
 							id="name"
 							value={Project_Name}
-							className="col-span-3"
+							className="col-span-3 rounded-xl focus:border-[#DDA83A]"
 							onChange={(e) => setProject_Name(e.target.value)}
 						/>
 					</div>
@@ -78,7 +79,7 @@ export function AddProject() {
 						<Label htmlFor="name" className="text-right">
 							Department Name
 						</Label>
-						<select name="department" value={department_id} onChange={(e) => setDepartment_id(e.target.value)}>
+						<select name="department" className="focus:border-[#DDA83A]" value={department_id} onChange={(e) => setDepartment_id(e.target.value)}>
 							{departments.map((department) => (
 								<option key={department.id} value={department.id}>
 									{department.Department_Name}
@@ -89,7 +90,7 @@ export function AddProject() {
 				</div>
 
 				<DialogFooter>
-					<Button type="submit" onClick={handleSave}>
+					<Button type="submit" className="bg-[#DDA83A] text-white rounded-xl hover:bg-[#DDA83A]" onClick={handleSave}>
 						Add Project
 					</Button>
 				</DialogFooter>

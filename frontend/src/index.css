@@ -2,17 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .header {
-    background-color: rgba(162, 161, 168, 0.1);
+	background-color: rgba(162, 161, 168, 0.1);
 }
 
 .side_menu {
-    width: 15%;
-    background-color: rgba(162, 161, 168, 0.1);
+	width: 15%;
+	background-color: rgba(162, 161, 168, 0.1);
 }
 
 .navMenu {
-    left: 8%;
+	left: 8%;
+}
 
+.filter_input {
+	border-radius: 0.5rem;
+	padding-block: 0.3rem;
+}
+
+div[role="dialog"] {
+    background-color: white;
+    border-radius: 10px;
+}
+
+select {
+	width: 14vw;
+    border: 1px solid;
+    border-radius: 10px;
+    padding-inline: 10px;
+    height: 120%;
 }

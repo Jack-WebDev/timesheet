@@ -44,6 +44,7 @@ const Dashboard = () => {
 			
 			<Layout />
 
+			<h1>Dashboard</h1>
 			<div className="dashboard__content grid grid-cols-2 w-fit mx-auto gap-8">
 				<NavLink to={"/employees"}>
 					<Card>

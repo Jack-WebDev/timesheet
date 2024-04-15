@@ -6,7 +6,8 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "migrate": "knex migrate:latest",
-    "seed": "knex seed:run"
+    "seed": "knex seed:run",
+    "rollback": "knex migrate:down"
   },
   "keywords": [],
   "author": "",

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { EditDepartment } from "../dialogUI/EditDepartment";
 import { AddDepartment } from "../dialogUI/AddDepartment";
+import { FaTrashAlt } from "react-icons/fa";
 
 type Department = {
 	id: string;
@@ -46,22 +47,25 @@ const departmentTable: React.FC = () => {
 	};
 
 	return (
-		<div className="w-1/2 mx-auto">
-			<input
-				type="text"
-				placeholder="Filter by department..."
-				className="w-full px-8 border border-black"
-				value={filter}
-				onChange={handleFilterChange}
-			/>
-			<AddDepartment />
-			<table>
-				<thead>
-					<tr>
-						<th>Department Name</th>
-						<th>No. of projects</th>
+		<div className="w-1/2 mx-auto  mt-12 border border-black p-8 rounded-2xl">
+			<div className="flex items-center justify-between mb-12">
+				<input
+					type="text"
+					placeholder="Filter by department..."
+					className="filter_input w-1/2 px-8 border border-black"
+					value={filter}
+					onChange={handleFilterChange}
+				/>
+				<AddDepartment />
 
-						<th>Actions</th>
+			</div>
+			<table className="w-full">
+				<thead className="relative -top-4">
+					<tr className="text-left text-gray-500">
+						<th className=" font-normal">Department Name</th>
+						<th className=" font-normal">No. of projects</th>
+
+						<th className=" font-normal">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -69,11 +73,9 @@ const departmentTable: React.FC = () => {
 						<tr key={department.id}>
 							<td>{department.Department_Name}</td>
 							<td>{department.Total_Projects}</td>
-							<td>
+							<td className="flex items-center justify-center gap-4">
 								<EditDepartment id={department.id} />
-								<button onClick={() => handleDelete(department.id)}>
-									Delete
-								</button>
+								<FaTrashAlt className="cursor-pointer" onClick={() => handleDelete(department.id)}/>
 							</td>
 						</tr>
 					))}

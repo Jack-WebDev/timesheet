@@ -12,7 +12,6 @@ const getProjects = async (req, res) => {
 			.leftJoin("departments", "departments.id", "projects.Department_Id")
 			.groupBy("projects.id", "departments.id", "departments.Department_Name");
 
-		console.log(projectsWithDepartments); // Log the query results
 
 		res.status(200).json(projectsWithDepartments);
 	} catch (error) {
@@ -22,7 +21,6 @@ const getProjects = async (req, res) => {
 
 const createProject = async (req, res) => {
 	const { Project_Name, Department_Id } = req.body;
-	console.log(Project_Name, Department_Id);
 
 	try {
 		const projectName = await db("projects").insert({
@@ -50,7 +48,6 @@ const getProject = async (req, res) => {
 const updateProject = async (req, res) => {
 	const { id } = req.params;
 	const { Project_Name } = req.body;
-	console.log(Project_Name);
 
 	try {
 		const get_project = await db("projects").select().where({ id: id }).update({

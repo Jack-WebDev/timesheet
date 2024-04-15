@@ -5,6 +5,7 @@ const Departments = () => {
 	return (
 		<div className="relative">
 			<Layout />
+			<h1>Department</h1>
 			<div>
 				<UserTable />
 			</div>

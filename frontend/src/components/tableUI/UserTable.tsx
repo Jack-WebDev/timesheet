@@ -3,6 +3,7 @@ import axios from "axios";
 import {EditUser} from "../dialogUI/EditUser"
 import {AddUser} from "../dialogUI/AddUser"
 import {toast} from "react-toastify"
+import { FaTrashAlt } from "react-icons/fa";
 
 
 
@@ -38,9 +39,8 @@ const UserTable: React.FC = () => {
 	};
 
 	const handleDelete = async (id: any) => {
-		const res = await axios.delete(`api/users/${id}`);
+		await axios.delete(`api/users/${id}`);
         fetchUsers()
-		console.log(res);
 	};
 
 	const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,25 +58,28 @@ const UserTable: React.FC = () => {
 
 
 	return (
-		<div className="w-1/2 mx-auto">
-			<input
-				type="text"
-				placeholder="Filter by name, department, or status..."
-                className="w-full px-8 border border-black"
-				value={filter}
-				onChange={handleFilterChange}
-			/>
-            <AddUser/>
-			<table>
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Surname</th>
-						<th>Email</th>
-						<th>Department</th>
-						<th>Status</th>
-						<th>Role</th>
-						<th>Actions</th>
+		<div className="w-1/2 mx-auto mt-12 border border-black p-8 rounded-2xl ">
+			<div className="flex items-center justify-between mb-12">
+				<input
+					type="text"
+					placeholder="Filter by name, department, or status..."
+					className="filter_input w-1/2 px-8 border border-black"
+					value={filter}
+					onChange={handleFilterChange}
+				/>
+				<AddUser/>
+
+			</div>
+			<table className="w-full">
+				<thead className="relative -top-4">
+					<tr className="text-left text-gray-500">
+						<th className="font-normal">Name</th>
+						<th className=" font-normal">Surname</th>
+						<th className=" font-normal">Email</th>
+						<th className=" font-normal">Department</th>
+						<th className=" font-normal">Status</th>
+						<th className=" font-normal">Role</th>
+						<th className=" font-normal">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -88,9 +91,9 @@ const UserTable: React.FC = () => {
 							<td>{user.Department}</td>
 							<td>{user.Status}</td>
 							<td>{user.Role}</td>
-							<td>
+							<td className="flex items-center justify-center gap-4">
 								<EditUser id={user.id}/>
-								<button onClick={() => handleDelete(user.id)}>Delete</button>
+								<FaTrashAlt className="cursor-pointer" onClick={() => handleDelete(user.id)}/>
 							</td>
 						</tr>
 					))}

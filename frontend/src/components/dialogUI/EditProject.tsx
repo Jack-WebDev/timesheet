@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { FaEdit } from "react-icons/fa";
 
 type User = {
 	id: string;
@@ -46,7 +47,7 @@ export function EditProject({ id }: User) {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button variant="outline">Edit</Button>
+			<FaEdit className="cursor-pointer"/>
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-[425px]">
 				<DialogHeader>
@@ -60,13 +61,13 @@ export function EditProject({ id }: User) {
 						<Input
 							id="projectName"
 							value={project}
-							className="col-span-3"
+							className="col-span-3 rounded-xl focus:border-[#DDA83A]"
 							onChange={(e) => setProject(e.target.value)}
 						/>
 					</div>
 				</div>
 				<DialogFooter>
-					<Button type="submit" onClick={handleSave}>
+					<Button type="submit" className="bg-[#DDA83A] text-white rounded-xl hover:bg-[#DDA83A]" onClick={handleSave}>
 						Save changes
 					</Button>
 				</DialogFooter>

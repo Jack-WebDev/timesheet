@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import axios from "axios";
+import { FaPlusCircle } from "react-icons/fa";
 
 export function AddDepartment() {
 	const [Department_Name, setDepartment_Name] = useState("");
@@ -29,7 +30,7 @@ export function AddDepartment() {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button variant="outline">ADD</Button>
+			<Button className="rounded-xl bg-[#DDA83A] text-white gap-x-4 hover:bg-[#DDA83A]"><FaPlusCircle/>Add New Department</Button>
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-[425px]">
 				<DialogHeader>
@@ -38,19 +39,19 @@ export function AddDepartment() {
 				<div className="grid gap-4 py-4">
 					<div className="grid grid-cols-4 items-center gap-4">
 						<Label htmlFor="name" className="text-right">
-							Department Name
+							Department
 						</Label>
 						<Input
 							id="name"
 							value={Department_Name}
-							className="col-span-3"
+							className="col-span-3 rounded-xl focus:border-[#DDA83A]"
 							onChange={(e) => setDepartment_Name(e.target.value)}
 						/>
 					</div>
 				</div>
 
 				<DialogFooter>
-					<Button type="submit" onClick={handleSave}>
+					<Button type="submit" className="bg-[#DDA83A] text-white rounded-xl hover:bg-[#DDA83A]" onClick={handleSave}>
 						Add Department
 					</Button>
 				</DialogFooter>

@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { FaEdit } from "react-icons/fa";
 
 type User = {
 	id: string;
@@ -31,13 +32,12 @@ export function EditUser({ id }: User) {
 	}, []);
 
 	const fetchUsers = async () => {
-		const res = await axios.get("api/users/");
-		console.log(res);
+		 await axios.get("api/users/");
 	};
 
 	const handleSave = async () => {
 		try {
-			const res = await axios.put(`api/users/${id}`, {
+			await axios.put(`api/users/${id}`, {
 				name,
 				surname,
 				email,
@@ -46,7 +46,6 @@ export function EditUser({ id }: User) {
 				status,
 				role,
 			});
-			console.log(res);
 		} catch (error) {
 			console.log(error);
 			toast.error("Error saving data");
@@ -56,13 +55,13 @@ export function EditUser({ id }: User) {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button variant="outline">Edit</Button>
+				<FaEdit className="cursor-pointer"/>
 			</DialogTrigger>
-			<DialogContent className="sm:max-w-[425px]">
+			<DialogContent className="sm:max-w-[425px] ">
 				<DialogHeader>
 					<DialogTitle>Edit User</DialogTitle>
 				</DialogHeader>
-				<div className="grid gap-4 py-4">
+				<div className="grid gap-4 py-4 ">
 					<div className="grid grid-cols-4 items-center gap-4">
 						<Label htmlFor="name" className="text-right">
 							Name
@@ -70,7 +69,7 @@ export function EditUser({ id }: User) {
 						<Input
 							id="name"
 							value={name}
-							className="col-span-3"
+							className="col-span-3 rounded-xl focus:border-[#DDA83A]"
 							onChange={(e) => setName(e.target.value)}
 						/>
 					</div>
@@ -83,7 +82,7 @@ export function EditUser({ id }: User) {
 						<Input
 							id="surname"
 							value={surname}
-							className="col-span-3"
+							className="col-span-3 rounded-xl focus:border-[#DDA83A]"
 							onChange={(e) => setSurname(e.target.value)}
 						/>
 					</div>
@@ -96,7 +95,7 @@ export function EditUser({ id }: User) {
 						<Input
 							id="email"
 							value={email}
-							className="col-span-3"
+							className="col-span-3 rounded-xl focus:border-[#DDA83A]"
 							onChange={(e) => setEmail(e.target.value)}
 						/>
 					</div>
@@ -109,7 +108,7 @@ export function EditUser({ id }: User) {
 						<Input
 							id="password"
 							value={password}
-							className="col-span-3"
+							className="col-span-3 rounded-xl focus:border-[#DDA83A]"
 							onChange={(e) => setPassword(e.target.value)}
 						/>
 					</div>
@@ -122,7 +121,7 @@ export function EditUser({ id }: User) {
 						<Input
 							id="status"
 							value={status}
-							className="col-span-3"
+							className="col-span-3 rounded-xl focus:border-[#DDA83A]"
 							onChange={(e) => setStatus(e.target.value)}
 						/>
 					</div>
@@ -135,7 +134,7 @@ export function EditUser({ id }: User) {
 						<Input
 							id="department"
 							value={department}
-							className="col-span-3"
+							className="col-span-3 rounded-xl focus:border-[#DDA83A]"
 							onChange={(e) => setDepartment(e.target.value)}
 						/>
 					</div>
@@ -148,13 +147,13 @@ export function EditUser({ id }: User) {
 						<Input
 							id="role"
 							value={role}
-							className="col-span-3"
+							className="col-span-3 rounded-xl focus:border-[#DDA83A]"
 							onChange={(e) => setRole(e.target.value)}
 						/>
 					</div>
 				</div>
 				<DialogFooter>
-					<Button type="submit" onClick={handleSave}>
+					<Button type="submit" className="bg-[#DDA83A] text-white rounded-xl hover:bg-[#DDA83A]" onClick={handleSave}>
 						Save changes
 					</Button>
 				</DialogFooter>

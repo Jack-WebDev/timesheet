@@ -13,10 +13,10 @@ const Row: React.FC = () => {
 		task: "",
 		hours: [0, 0, 0, 0, 0],
 	});
-
+	
+	console.log(formData)
 	const [projectNames, setProjectNames] = useState<string[]>([]);
 
-	console.log(projectNames);
 
 	useEffect(() => {
 		fetchProjectNames();
@@ -24,7 +24,7 @@ const Row: React.FC = () => {
 
 	const fetchProjectNames = async () => {
 		try {
-		  const response = await axios.get('/api/projects'); // Adjust the URL based on your backend API endpoint
+		  const response = await axios.get('api/projects/'); 
 		  const projectNamesArray = response.data.map((project: { Project_Name: string; }) => project.Project_Name);
 		  setProjectNames(projectNamesArray);
 		} catch (error) {
@@ -37,9 +37,9 @@ const Row: React.FC = () => {
 		return formData.hours.reduce((total, hour) => total + hour, 0);
 	};
 
-	const handleProjectChange = (value: string) => {
-		setFormData({ ...formData, project: value });
-	};
+	// const handleProjectChange = (value: string) => {
+	// 	setFormData({ ...formData, project: value });
+	// };
 
 	const handleTaskChange = (value: string) => {
 		setFormData({ ...formData, task: value });
@@ -51,10 +51,43 @@ const Row: React.FC = () => {
 		setFormData({ ...formData, hours: newHours });
 	};
 
+	const handleSubmit = async () => {
+		// Calculate total hours
+		const totalHours = calculateTotalHours();
+	
+		// Update formData with total hours
+		const updatedFormData = {
+			...formData,
+			hours: [...formData.hours], // Make a copy of hours array
+		};
+		updatedFormData.hours.push(totalHours); // Append total hours to the end of hours array
+	
+		try {
+			const res = await axios.post("api/timesheets/", {
+				formData: updatedFormData
+			});
+	
+			console.log(res);
+	
+			// If successful, you may want to reset the form or show a success message
+			setFormData({
+				project: "",
+				task: "",
+				hours: [0, 0, 0, 0, 0],
+			});
+	
+			// Optionally, fetch updated project names after submitting
+			fetchProjectNames();
+		} catch (error) {
+			console.error('Error submitting timesheet:', error);
+			// Handle error (e.g., show an error message)
+		}
+	};
+	
+
 	return (
 		<div className="row-form flex items-center justify-around">
 			<div>Project</div>
-			{/* Render project names in a dropdown */}
 			<select>
 				{projectNames.map((projectName, index) => (
 					<option key={index} value={projectName}>
@@ -68,7 +101,7 @@ const Row: React.FC = () => {
 				onChange={(e) => handleTaskChange(e.target.value)}
 				placeholder="Task"
 			/>
-			{["Mon", "Tue", "Wed", "Thu", "Fri"].map((day, index) => (
+			{["Mon", "Tue", "Wed", "Thu", "Fri"].map((_day, index) => (
 				<input
 					key={index}
 					type="number"
@@ -77,6 +110,8 @@ const Row: React.FC = () => {
 				/>
 			))}
 			<div>{calculateTotalHours()}</div>
+
+			<button type="submit" onClick={handleSubmit}>Submit</button>
 		</div>
 	);
 };

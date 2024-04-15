@@ -5,11 +5,10 @@ const { comparePassword, hashPassword } = require("../middleware/auth");
 const isValidEmailDomain = require("../utils/validateEmail");
 const jwt = require("jsonwebtoken");
 const validator = require("validator");
-const { saveRefreshToken } = require("../utils/refreshToken");
+// const { saveRefreshToken } = require("../utils/refreshToken");
 
 const userLogin = async (req, res) => {
 	const { email, password } = req.body;
-	console.log(email);
 
 	if (!isValidEmailDomain(email, "ndt.co.za")) {
 		return res.status(309).json({ message: "Invalid NDT email" });
@@ -35,7 +34,7 @@ const userLogin = async (req, res) => {
 
 		res.cookie("jwt", token, {
 			httpOnly: true,
-			maxAge: 60 * 60 * 1000,
+			maxAge: 15 * 1000,
 			sameSite: "strict",
 		});
 
@@ -51,7 +50,7 @@ const userLogin = async (req, res) => {
 			maxAge: 24 * 60 * 60 * 1000,
 		});
 
-		saveRefreshToken(db, refresh_token);
+		// saveRefreshToken(db, refresh_token);
 
 		res.json({
 			success: true,

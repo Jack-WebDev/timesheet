@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { EditProject } from "../dialogUI/EditProject";
 import { AddProject } from "../dialogUI/AddProject";
+import { FaTrashAlt } from "react-icons/fa";
 
 type Project = {
 	id: string;
 	Project_Name: string;
 
-	Department: string;
+	Department_Name: string;
 };
 
 const ProjectTable: React.FC = () => {
@@ -30,9 +31,8 @@ const ProjectTable: React.FC = () => {
 	};
 
 	const handleDelete = async (id: any) => {
-		const res = await axios.delete(`api/projects/${id}`);
+		await axios.delete(`api/projects/${id}`);
 		fetchprojects();
-		console.log(res);
 	};
 
 	const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,23 +45,26 @@ const ProjectTable: React.FC = () => {
 	};
 
 	return (
-		<div className="w-1/2 mx-auto">
-			<input
-				type="text"
-				placeholder="Filter by project name..."
-				className="w-full px-8 border border-black"
-				value={filter}
-				onChange={handleFilterChange}
-			/>
-			<AddProject />
-			<table>
-				<thead>
-					<tr>
-						<th>Project Name</th>
+		<div className="w-1/2 mx-auto mt-12 border border-black p-8 rounded-2xl ">
+			<div className="flex items-center justify-between mb-12">
+				<input
+					type="text"
+					placeholder="Filter by project name..."
+					className="filter_input w-1/2 px-8 border border-black"
+					value={filter}
+					onChange={handleFilterChange}
+				/>
+				<AddProject />
 
-						<th>Department</th>
+			</div>
+			<table className="w-full">
+				<thead className="relative -top-4">
+					<tr className="text-left text-gray-500">
+						<th className=" font-normal">Project Name</th>
 
-						<th>Actions</th>
+						<th className=" font-normal">Department</th>
+
+						<th className=" font-normal">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -69,11 +72,11 @@ const ProjectTable: React.FC = () => {
 						<tr key={project.id}>
 							<td>{project.Project_Name}</td>
 
-							<td>{project.Department}</td>
+							<td>{project.Department_Name}</td>
 
-							<td>
+							<td className="flex items-center justify-center gap-4">
 								<EditProject id={project.id} />
-								<button onClick={() => handleDelete(project.id)}>Delete</button>
+								<FaTrashAlt className="cursor-pointer" onClick={() => handleDelete(project.id)}/>
 							</td>
 						</tr>
 					))}

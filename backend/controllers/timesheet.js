@@ -1,108 +1,67 @@
+const db = require("../database/db");
 
-const db = require("../database/db")
+const getAllTimesheets = async (req, res) => {
+	const {
+		user_id,
+		project_id,
+		task_performed,
+		week,
+		mon,
+		tue,
+		wed,
+		thurs,
+		fri,
+		total_hours,
+	} = req.body;
 
-// All Timesheets
-// Get req
-// Public
-const getTimesheets = async (req, res) => {
-  try {
-    const query = "SELECT * FROM Timesheets ORDER BY CREATED_AT DESC";
-    const [rows] = await pool.query(query);
-    if (rows.length === 0) {
-      return res.status(200).json({ message: "No Timesheets available" });
-    }
-    res.status(200).json(rows);
-  } catch (error) {
-    console.error("Error getting timesheets", error);
-    res.status(500).json({ error: "Error getting timesheets" });
-  }
+	console.log(
+		user_id,
+		project_id,
+		task_performed,
+		week,
+		mon,
+		tue,
+		wed,
+		thurs,
+		fri,
+		total_hours
+	);
+	res.status(200).json("Got timesheets");
 };
 
-// Create Timesheet
-// Post req
-// Public
-const createTimesheet = async (req, res) => {
-  const { fullName, projectName, startTime, endTime, hoursWorked } = req.body;
-
-  try {
-    const query =
-      "INSERT INTO Timesheets (FullName,ProjectName, StartTime,EndTime,HoursWorked) VALUES (?,?,?,?,?)";
-    const values = [fullName, projectName, startTime, endTime, hoursWorked];
-
-    await pool.query(query, values);
-
-    res.status(201).json({ message: "Project created!" });
-  } catch (error) {
-    console.error("Error creating project", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-};
-
-// Get Timesheet by ID
-// Get req
-// Public
 const getTimesheet = async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const query = "SELECT * FROM Timesheets WHERE TimesheetID = ?";
-    const value = [id];
-
-    const response = await pool.query(query, value);
-
-    res.status(200).json({ message: response[0][0] });
-  } catch (error) {
-    console.error("Error getting project", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
+	const { id } = req.params;
+	console.log(id);
+	res.status(200).json("Got timesheet");
 };
 
-// Delete Timesheet by ID
-// Delete req
-// Public
-const deleteTimesheet = async (req, res) => {
-  const { id } = req.params;
+const createTimesheet = async (req, res) => {
+	const {
+		user_id,
+		project_id,
+		task_performed,
+		week,
+		mon,
+		tue,
+		wed,
+		thurs,
+		fri,
+		total_hours,
+	} = req.body;
+	console.log(
+		user_id,
+		project_id,
+		task_performed,
+		week,
+		mon,
+		tue,
+		wed,
+		thurs,
+		fri,
+		total_hours
+	);
 
-  try {
-    const timesheetID = parseInt(id, 10);
-
-    const query = "DELETE FROM Timesheets WHERE TimesheetID = ?";
-    const values = [timesheetID];
-
-    await pool.query(query, values);
-
-    res.status(200).json({ message: "Project deleted!" });
-  } catch (error) {
-    console.error("Error deleting project", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
+	res.status(201).json("created timesheet");
 };
 
-// Update Timesheet by ID
-// Put req
-// Public
-const updateTimesheet = async (req, res) => {
-  const { id } = req.params;
-  const status = req.body.status;
-  try {
-    const timesheetID = parseInt(id, 10);
-
-    const query = "UPDATE Timesheets SET Status = ? WHERE TimesheetID = ?";
-    const values = [status, timesheetID];
-
-    await pool.query(query, values);
-
-    res.status(201).json({ message: "Timesheet Updated" });
-  } catch (error) {
-    console.error("Error updating timesheet", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-};
-
-export {
-  getTimesheets,
-  getTimesheet,
-  deleteTimesheet,
-  createTimesheet,
-  updateTimesheet,
-};
+module.exports = { getAllTimesheets, getTimesheet, createTimesheet };

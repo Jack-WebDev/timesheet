@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const userRouter = require("./routes/user")
 const departmentRouter = require("./routes/departments")
 const projectRouter = require("./routes/projects")
+const timesheetRouter = require("./routes/timesheets")
 const PORT = process.env.PORT || 8001;
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/api/users",userRouter)
 app.use("/api/departments",departmentRouter)
 app.use("/api/projects", projectRouter)
+app.use("/api/timesheets",timesheetRouter)
 
 app.listen(PORT, () => {
 	console.log(`Server running on port: ${PORT}`);

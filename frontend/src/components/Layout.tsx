@@ -29,8 +29,8 @@ const Layout = () => {
 	};
 	return (
 		<div className="relative">
-			<header className="header flex justify-around items-center py-4">
-				<h1>Welcome to your timesheet dashboard</h1>
+			<header className="flex justify-around items-center py-4">
+				<h1>NDT Logo</h1>
 				<div className="profile flex items-center gap-x-3">
 					<Popover>
 						<PopoverTrigger className="flex items-center gap-4">
@@ -38,7 +38,7 @@ const Layout = () => {
 						</PopoverTrigger>
 						<PopoverContent className="flex items-center gap-4 w-fit">
 							<NavLink to={"/"} onClick={handleLogout}>
-								Log Out <FaDoorOpen />
+								Log Out
 							</NavLink>
 						</PopoverContent>
 					</Popover>

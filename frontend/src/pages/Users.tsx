@@ -1,5 +1,5 @@
 import Layout from "@/components/Layout";
-import UserTable from "@/components/UserTable";
+import UserTable from "@/components/tableUI/UserTable";
 
 const Users = () => {
 	return (

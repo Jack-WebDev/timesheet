@@ -3,19 +3,22 @@ const db = require("../database/db");
 const getDepartments = async (req, res) => {
 	try {
 		const dept = await db("departments")
-			.select("Department_Name")
+			.select("departments.id", "Department_Name")
 			.count("projects.id as Total_Projects")
 			.leftJoin("projects", "departments.id", "projects.Department_Id")
-			.groupBy("departments.Department_Name");
+			.groupBy("departments.id", "departments.Department_Name");
 
 		res.status(200).json(dept);
 	} catch (error) {
 		console.log(error);
+		res.status(500).json({ error: "Internal Server Error" });
 	}
 };
 
 const createDepartment = async (req, res) => {
 	const { Department_Name } = req.body;
+	console.log(Department_Name)
+	
 
 	try {
 		const deparName = await db("departments").insert({

@@ -1,6 +1,6 @@
 
 import Layout from "@/components/Layout";
-import UserTable from "@/components/ProjectTable";
+import UserTable from "@/components/tableUI/ProjectTable";
 
 
 const Projects = () => {

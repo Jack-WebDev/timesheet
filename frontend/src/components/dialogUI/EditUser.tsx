@@ -17,7 +17,7 @@ type User = {
 	id: string;
 };
 
-export function EditDialog({ id }: User) {
+export function EditUser({ id }: User) {
 	const [name, setName] = useState("");
 	const [surname, setSurname] = useState("");
 	const [email, setEmail] = useState("");
@@ -32,7 +32,7 @@ export function EditDialog({ id }: User) {
 
 	const fetchUsers = async () => {
 		const res = await axios.get("api/users/");
-        console.log(res)
+		console.log(res);
 	};
 
 	const handleSave = async () => {
@@ -48,10 +48,9 @@ export function EditDialog({ id }: User) {
 			});
 			console.log(res);
 		} catch (error) {
-			console.log(error)
-			toast.error("Error saving data")
+			console.log(error);
+			toast.error("Error saving data");
 		}
-
 	};
 
 	return (

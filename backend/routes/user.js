@@ -1,6 +1,7 @@
 const {
 	userLogin,
 	userRegister,
+	createUser,
 	getUsers,
 	getUser,
 	deleteUser,
@@ -12,11 +13,14 @@ const express = require("express");
 const userRouter = express.Router();
 
 userRouter.get("/",getUsers)
-userRouter.get("/:id", getUser);
+userRouter.post("/",createUser)
+
 userRouter.post("/login", userLogin);
 userRouter.post("/register", userRegister);
+userRouter.post("logout", logOutUser)
+
+userRouter.get("/:id", getUser);
 userRouter.put("/:id", updateUser);
 userRouter.delete("/:id", deleteUser);
-userRouter.post("logout", logOutUser)
 
 module.exports = userRouter

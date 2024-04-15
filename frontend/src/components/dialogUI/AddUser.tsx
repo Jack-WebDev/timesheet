@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import axios from "axios";
 
-export function AddDialog() {
+export function AddUser() {
 	const [name, setName] = useState("");
 	const [surname, setSurname] = useState("");
 	const [email, setEmail] = useState("");
@@ -22,7 +22,7 @@ export function AddDialog() {
 	const [department, setDepartment] = useState("");
 
 	const handleSave = async () => {
-		const res = await axios.post(`api/users/`, {
+		 await axios.post(`api/users/`, {
 			name,
 			surname,
 			email,
@@ -31,7 +31,7 @@ export function AddDialog() {
 			status,
 			role,
 		});
-		console.log(res);
+		window.location.reload()
 	};
 
 	return (

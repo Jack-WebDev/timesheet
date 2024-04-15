@@ -90,6 +90,30 @@ const userRegister = async (req, res) => {
 	}
 };
 
+const createUser = async (req, res) => {
+	const { name, surname, email, password, status, role, department } = req.body;
+
+	if (!isValidEmailDomain(email, "ndt.co.za")) {
+		return res.status(309).json({ message: "Invalid NDT email" });
+	}
+
+	try {
+		const data = await db("users").insert({
+			Name: name,
+			Surname: surname,
+			Email: email,
+			Password: password,
+			Department: department,
+			Status: status,
+			Role: role,
+		});
+
+		res.status(201).json(data);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 const getUsers = async (req, res) => {
 	try {
 		const users = await db.select().from("users");
@@ -113,8 +137,8 @@ const getUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
 	const { id } = req.params;
-	const { name, surname, email, department,password, role, status } = req.body;
-	console.log(id,name, surname, email, department,password, role, status);
+	const { name, surname, email, department, password, role, status } = req.body;
+	console.log(id, name, surname, email, department, password, role, status);
 
 	try {
 		if (!validator.isStrongPassword(password)) {
@@ -133,7 +157,7 @@ const updateUser = async (req, res) => {
 
 		return res.status(200).json(updated);
 	} catch (error) {
-		return res.status(500).json({error: error})
+		return res.status(500).json({ error: error });
 	}
 };
 
@@ -158,6 +182,7 @@ const logOutUser = async (req, res) => {
 module.exports = {
 	userLogin,
 	userRegister,
+	createUser,
 	getUsers,
 	getUser,
 	updateUser,

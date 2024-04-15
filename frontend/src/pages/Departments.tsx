@@ -1,4 +1,4 @@
-import UserTable from "@/components/DepartmentTable";
+import UserTable from "@/components/tableUI/DepartmentTable";
 import Layout from "@/components/Layout";
 
 const Departments = () => {

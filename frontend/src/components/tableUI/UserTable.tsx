@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {EditDialog} from "./EditDialog"
-import {AddDialog} from "./AddDialog"
+import {EditUser} from "../dialogUI/EditUser"
+import {AddUser} from "../dialogUI/AddUser"
 import {toast} from "react-toastify"
+
 
 
 type User = {
@@ -32,6 +33,7 @@ const UserTable: React.FC = () => {
 			setFilteredUsers(response.data);
 		} catch (error) {
 			console.error("Error fetching users:", error);
+			toast.error("Error fetching users. Please try again")
 		}
 	};
 
@@ -64,7 +66,7 @@ const UserTable: React.FC = () => {
 				value={filter}
 				onChange={handleFilterChange}
 			/>
-            <AddDialog/>
+            <AddUser/>
 			<table>
 				<thead>
 					<tr>
@@ -87,7 +89,7 @@ const UserTable: React.FC = () => {
 							<td>{user.Status}</td>
 							<td>{user.Role}</td>
 							<td>
-								<EditDialog id={user.id}/>
+								<EditUser id={user.id}/>
 								<button onClick={() => handleDelete(user.id)}>Delete</button>
 							</td>
 						</tr>

@@ -3,20 +3,18 @@ import axios from "axios";
 
 interface RowFormData {
 	project: string;
-	task: string;
+	task_performed: string;
 	hours: number[];
 }
 
 const Row: React.FC = () => {
 	const [formData, setFormData] = useState<RowFormData>({
 		project: "",
-		task: "",
+		task_performed: "",
 		hours: [0, 0, 0, 0, 0],
 	});
-	
-	console.log(formData)
-	const [projectNames, setProjectNames] = useState<string[]>([]);
 
+	const [projectNames, setProjectNames] = useState<string[]>([]);
 
 	useEffect(() => {
 		fetchProjectNames();
@@ -24,14 +22,16 @@ const Row: React.FC = () => {
 
 	const fetchProjectNames = async () => {
 		try {
-		  const response = await axios.get('api/projects/'); 
-		  const projectNamesArray = response.data.map((project: { Project_Name: string; }) => project.Project_Name);
-		  setProjectNames(projectNamesArray);
+			const response = await axios.get("api/projects/");
+			const projectNamesArray = response.data.map(
+				(project: { Project_Name: string }) => project.Project_Name
+			);
+			setProjectNames(projectNamesArray);
 		} catch (error) {
-		  console.error('Error fetching project names:', error);
-		  // Handle error (e.g., show an error message)
+			console.error("Error fetching project names:", error);
+			// Handle error (e.g., show an error message)
 		}
-	  };
+	};
 
 	const calculateTotalHours = (): number => {
 		return formData.hours.reduce((total, hour) => total + hour, 0);
@@ -42,7 +42,7 @@ const Row: React.FC = () => {
 	// };
 
 	const handleTaskChange = (value: string) => {
-		setFormData({ ...formData, task: value });
+		setFormData({ ...formData, task_performed: value });
 	};
 
 	const handleHoursChange = (index: number, value: number) => {
@@ -54,65 +54,77 @@ const Row: React.FC = () => {
 	const handleSubmit = async () => {
 		// Calculate total hours
 		const totalHours = calculateTotalHours();
-	
+
 		// Update formData with total hours
 		const updatedFormData = {
 			...formData,
 			hours: [...formData.hours], // Make a copy of hours array
 		};
 		updatedFormData.hours.push(totalHours); // Append total hours to the end of hours array
-	
+
 		try {
-			const res = await axios.post("api/timesheets/", {
-				formData: updatedFormData
+			const res = await axios.post("api/timesheets/create", {
+				formData: updatedFormData,
 			});
-	
-			console.log(res);
-	
+
+			console.log(res, formData);
+
 			// If successful, you may want to reset the form or show a success message
 			setFormData({
 				project: "",
-				task: "",
+				task_performed: "",
 				hours: [0, 0, 0, 0, 0],
 			});
-	
+
 			// Optionally, fetch updated project names after submitting
 			fetchProjectNames();
 		} catch (error) {
-			console.error('Error submitting timesheet:', error);
+			console.error("Error submitting timesheet:", error);
 			// Handle error (e.g., show an error message)
 		}
 	};
-	
 
 	return (
-		<div className="row-form flex items-center justify-around">
-			<div>Project</div>
-			<select>
-				{projectNames.map((projectName, index) => (
-					<option key={index} value={projectName}>
-						{projectName}
-					</option>
-				))}
-			</select>
-			<input
-				type="text"
-				value={formData.task}
-				onChange={(e) => handleTaskChange(e.target.value)}
-				placeholder="Task"
-			/>
-			{["Mon", "Tue", "Wed", "Thu", "Fri"].map((_day, index) => (
+		<>
+			<div className="row-form flex items-center justify-around my-4">
+				<select className="project_dropdown">
+					<option value="">Select Project</option>
+					{projectNames.map((projectName, index) => (
+						<option key={index} value={projectName}>
+							{projectName}
+						</option>
+					))}
+				</select>
 				<input
-					key={index}
-					type="number"
-					value={formData.hours[index]}
-					onChange={(e) => handleHoursChange(index, parseInt(e.target.value))}
+					type="text"
+					className="task_input border border-black mx-4 px-4"
+					value={formData.task_performed}
+					onChange={(e) => handleTaskChange(e.target.value)}
+					placeholder="Task Performed..."
 				/>
-			))}
-			<div>{calculateTotalHours()}</div>
-
-			<button type="submit" onClick={handleSubmit}>Submit</button>
-		</div>
+				<div className="days">
+					{["Mon", "Tue", "Wed", "Thu", "Fri"].map((_day, index) => (
+						<input
+							key={index}
+							className="hour_input w-1/6 mr-4"
+							type="number"
+							value={formData.hours[index]}
+							onChange={(e) =>
+								handleHoursChange(index, parseInt(e.target.value))
+							}
+						/>
+					))}
+				</div>
+				<div className="relative right-24">{calculateTotalHours()}</div>
+			</div>
+			<button
+				type="submit"
+				className="rounded-xl bg-[#DDA83A] text-white gap-x-4 hover:bg-[#DDA83A] py-2 px-6 mb-4 mr-4"
+				onClick={handleSubmit}
+			>
+				Submit
+			</button>
+		</>
 	);
 };
 

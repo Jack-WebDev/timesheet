@@ -1,76 +1,48 @@
-"use client";
+import Card from "@/components/timesheet/Card";
+import DateRangeSelector from "@/components/timesheet/DatePicker";
+import { useState } from "react";
+import { FaChevronDown } from "react-icons/fa";
 
-import { ColumnDef } from "@tanstack/react-table";
-import { FaEdit, FaTrash } from "react-icons/fa";
-import axios from "axios";
-import { useEffect } from "react";
+const Timesheet = () => {
+	const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(null);
+	const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(null);
 
-export type Payment = {
-	id: string;
-	Name: string;
-	department: string;
-	Email: string;
-	status: string;
-};
+	const handleUpdateDateRange = (startDate: Date, endDate: Date) => {
+		setSelectedStartDate(startDate);
+		setSelectedEndDate(endDate);
+	};
 
-const getUsers = async () => {
-	try {
-		const res = await axios.get("api/users");
-		console.log(res);
-	} catch (error) {
-		console.log(error);
-	}
-};
 
-useEffect(() => {
-	getUsers();
-}, []);
+	return (
+		<div>
+			<header className="flex items-center justify-around py-4">
+				<div className="logo">LOGO</div>
 
-const handleDelete = async () => {
-	try {
-		const res = await axios.delete("api/users");
-	} catch (error) {
-		console.log(error);
-	}
-	console.log("Delete");
-};
-
-const handleEdit = () => {
-	console.log("Edit");
-};
-
-export const columns: ColumnDef<Payment>[] = [
-	{
-		accessorKey: "Name",
-		header: "Employee Name",
-	},
-	{
-		accessorKey: "Email",
-		header: "Email",
-	},
-	{
-		accessorKey: "department",
-		header: "Department Name",
-	},
-	{
-		accessorKey: "status",
-		header: "Status",
-	},
-	{
-		id: "actions",
-		accessorKey: "actions",
-		header: "Actions",
-		cell: () => {
-			return (
-				<div className="flex items-center gap-x-4">
-					<button onClick={handleEdit}>
-						<FaEdit /> Edit
-					</button>
-					<button onClick={handleDelete}>
-						<FaTrash /> Delete
-					</button>
+				<div className="profile">
+					<p className="flex items-center gap-4">
+						Me <FaChevronDown />
+					</p>
 				</div>
-			);
-		},
-	},
-];
+			</header>
+
+			<main>
+				<DateRangeSelector onUpdateDateRange={handleUpdateDateRange} />
+
+				<div className="timesheet__container">
+					<div className="timesheet__details flex items-center justify-around">
+						<div className="time__period">
+							<h2>Week:</h2>
+							<span>
+								{selectedStartDate?.toLocaleDateString()} -{" "}
+								{selectedEndDate?.toLocaleDateString()}
+							</span>
+						</div>
+					</div>
+					<Card />
+				</div>
+			</main>
+		</div>
+	);
+};
+
+export default Timesheet;

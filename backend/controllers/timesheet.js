@@ -36,30 +36,10 @@ const getTimesheet = async (req, res) => {
 };
 
 const createTimesheet = async (req, res) => {
-	const {
-		user_id,
-		project_id,
-		task_performed,
-		week,
-		mon,
-		tue,
-		wed,
-		thurs,
-		fri,
-		total_hours,
-	} = req.body;
-	console.log(
-		user_id,
-		project_id,
-		task_performed,
-		week,
-		mon,
-		tue,
-		wed,
-		thurs,
-		fri,
-		total_hours
-	);
+	const {formData}  = req.body;
+	console.log(formData);
+	const task_performed = formData.task_performed
+	console.log(task_performed)
 
 	res.status(201).json("created timesheet");
 };

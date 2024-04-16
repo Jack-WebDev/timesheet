@@ -2,16 +2,20 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 interface RowFormData {
+
 	project: string;
 	task_performed: string;
 	hours: number[];
+	total_hours: number;
 }
 
 const Row: React.FC = () => {
 	const [formData, setFormData] = useState<RowFormData>({
+
 		project: "",
 		task_performed: "",
 		hours: [0, 0, 0, 0, 0],
+		total_hours: 0,
 	});
 
 	const [projectNames, setProjectNames] = useState<string[]>([]);
@@ -27,6 +31,7 @@ const Row: React.FC = () => {
 				(project: { Project_Name: string }) => project.Project_Name
 			);
 			setProjectNames(projectNamesArray);
+			
 		} catch (error) {
 			console.error("Error fetching project names:", error);
 			// Handle error (e.g., show an error message)
@@ -43,6 +48,7 @@ const Row: React.FC = () => {
 
 	const handleTaskChange = (value: string) => {
 		setFormData({ ...formData, task_performed: value });
+
 	};
 
 	const handleHoursChange = (index: number, value: number) => {
@@ -54,26 +60,30 @@ const Row: React.FC = () => {
 	const handleSubmit = async () => {
 		// Calculate total hours
 		const totalHours = calculateTotalHours();
-
+		const id = localStorage.getItem("user")
+		const date = localStorage.getItem("date")
 		// Update formData with total hours
 		const updatedFormData = {
+			userID:id,
+			period:date,
 			...formData,
-			hours: [...formData.hours], // Make a copy of hours array
+			hours: [...formData.hours],
+			total_hours: totalHours,
 		};
-		updatedFormData.hours.push(totalHours); // Append total hours to the end of hours array
 
 		try {
 			const res = await axios.post("api/timesheets/create", {
 				formData: updatedFormData,
 			});
 
-			console.log(res, formData);
+			console.log(res, updatedFormData);
 
 			// If successful, you may want to reset the form or show a success message
 			setFormData({
 				project: "",
 				task_performed: "",
 				hours: [0, 0, 0, 0, 0],
+				total_hours: 0,
 			});
 
 			// Optionally, fetch updated project names after submitting
@@ -87,7 +97,13 @@ const Row: React.FC = () => {
 	return (
 		<>
 			<div className="row-form flex items-center justify-around my-4">
-				<select className="project_dropdown">
+				<select
+					className="project_dropdown"
+					value={formData.project}
+					onChange={(e) =>
+						setFormData({ ...formData, project: e.target.value })
+					}
+				>
 					<option value="">Select Project</option>
 					{projectNames.map((projectName, index) => (
 						<option key={index} value={projectName}>
@@ -95,6 +111,7 @@ const Row: React.FC = () => {
 						</option>
 					))}
 				</select>
+
 				<input
 					type="text"
 					className="task_input border border-black mx-4 px-4"
@@ -102,6 +119,7 @@ const Row: React.FC = () => {
 					onChange={(e) => handleTaskChange(e.target.value)}
 					placeholder="Task Performed..."
 				/>
+
 				<div className="days">
 					{["Mon", "Tue", "Wed", "Thu", "Fri"].map((_day, index) => (
 						<input

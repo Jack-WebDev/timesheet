@@ -19,6 +19,10 @@ const Timesheet = () => {
 	const handleUpdateDateRange = (startDate: Date, endDate: Date) => {
 		setSelectedStartDate(startDate);
 		setSelectedEndDate(endDate);
+		const week = `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`
+
+		console.log(week)
+		localStorage.setItem("date", week)
 	};
 
 	const handleLogout = async () => {

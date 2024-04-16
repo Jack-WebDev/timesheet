@@ -6,8 +6,8 @@ exports.up = function(knex) {
     return knex.schema.createTable("timesheets", (t) => {
         t.uuid('id').primary().defaultTo(knex.fn.uuid());
         t.uuid('User_id').unsigned().references('id').inTable('users').onDelete('CASCADE');
-        t.uuid('Project_id').unsigned().references('id').inTable('projects').onDelete('CASCADE');
-        t.string('Task_perfomed').nullable();
+        t.string("Project_Name").notNullable();
+        t.string('Task_performed').nullable();
         t.string('Week').notNullable();
         t.string("Monday").nullable()
         t.string("Tuesday").nullable()

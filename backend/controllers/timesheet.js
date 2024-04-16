@@ -1,32 +1,15 @@
 const db = require("../database/db");
 
 const getAllTimesheets = async (req, res) => {
-	const {
-		user_id,
-		project_id,
-		task_performed,
-		week,
-		mon,
-		tue,
-		wed,
-		thurs,
-		fri,
-		total_hours,
-	} = req.body;
+	try {
+		const data = await db("timesheets").select().returning("User_id")
+		const id = data
 
-	console.log(
-		user_id,
-		project_id,
-		task_performed,
-		week,
-		mon,
-		tue,
-		wed,
-		thurs,
-		fri,
-		total_hours
-	);
-	res.status(200).json("Got timesheets");
+		res.status(200).json(id)
+
+	} catch (error) {
+		console.log(error)
+	}
 };
 
 const getTimesheet = async (req, res) => {
@@ -36,10 +19,21 @@ const getTimesheet = async (req, res) => {
 };
 
 const createTimesheet = async (req, res) => {
-	const {formData}  = req.body;
+	const { formData } = req.body;
 	console.log(formData);
-	const task_performed = formData.task_performed
-	console.log(task_performed)
+
+	await db("timesheets").insert({
+		User_id:formData.userID,
+		Project_Name: formData.project,
+		Task_performed: formData.task_performed,
+		Week:formData.period,
+		Monday: formData.hours[0],
+		Tuesday: formData.hours[1],
+		Wednesday: formData.hours[2],
+		Thursday: formData.hours[3],
+		Friday: formData.hours[4],
+		Total_hours: formData.total_hours,
+	});
 
 	res.status(201).json("created timesheet");
 };

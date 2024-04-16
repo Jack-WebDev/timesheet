@@ -46,4 +46,11 @@ const generateToken = (res, userID, userRole) => {
 	});
 };
 
-module.exports = { generateToken, comparePassword, doesUserExist, hashPassword };
+const idAdmin = () => {};
+
+module.exports = {
+	generateToken,
+	comparePassword,
+	doesUserExist,
+	hashPassword,
+};

@@ -14,6 +14,7 @@ import Departments from "./pages/Departments.tsx";
 import Projects from "./pages/Projects.tsx";
 import Users from "./pages/Users.tsx";
 import Timesheet from "./pages/employee/Timesheet.tsx";
+import Timesheets from "./pages/admin/Timesheets.tsx";
 // import Logout from "./components/auth/Logout.tsx";
 
 const router = createBrowserRouter(
@@ -22,6 +23,7 @@ const router = createBrowserRouter(
 			<Route index={true} path="/" element={<Login />} />
 			{/* <Route path="/logout" element={<Logout />} /> */}
 			<Route path="/admin" element={<Dashboard />} />
+			<Route path="/getTimesheets" element={<Timesheets/>}/>
 			<Route path="/departments" element={<Departments />} />
 			<Route path="/projects" element={<Projects />} />
 			<Route path="/employees" element={<Users />} />

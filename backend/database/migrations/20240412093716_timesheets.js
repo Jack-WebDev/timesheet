@@ -5,7 +5,7 @@
 exports.up = function(knex) {
     return knex.schema.createTable("timesheets", (t) => {
         t.uuid('id').primary().defaultTo(knex.fn.uuid());
-        t.uuid('User_id').unsigned().references('id').inTable('users').onDelete('CASCADE');
+        t.string("Full_Name").notNullable();
         t.string("Project_Name").notNullable();
         t.string('Task_performed').nullable();
         t.string('Week').notNullable();
@@ -15,6 +15,7 @@ exports.up = function(knex) {
         t.string("Thursday").nullable()
         t.string("Friday").nullable()
         t.decimal("Total_hours", 5, 2).defaultTo(0.0);
+        t.string("Approval_Status").notNullable().defaultTo("Pending")
         t.timestamps(true, true);
     })
   

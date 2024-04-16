@@ -37,14 +37,16 @@ export function LoginForm() {
 		try {
 			const res = await axios.post("api/users/login", { ...values });
 
-			const { id,success, role, name, token } = res.data;
+			const { success, role, name, surname, token } = res.data;
 
-			console.log(id,success, role, name, token);
+			console.log(surname,success, role, name, token);
+
+			const fullName = `${name} ${surname}`
 
 			if (success) {
 				setAuthenticated(true);
 				setRole(role);
-				localStorage.setItem("user",id );
+				localStorage.setItem("user",fullName );
 			}
 		} catch (error) {
 			console.log(error);

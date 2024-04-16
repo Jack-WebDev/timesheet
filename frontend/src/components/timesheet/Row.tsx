@@ -60,11 +60,11 @@ const Row: React.FC = () => {
 	const handleSubmit = async () => {
 		// Calculate total hours
 		const totalHours = calculateTotalHours();
-		const id = localStorage.getItem("user")
+		const fullName = localStorage.getItem("user")
 		const date = localStorage.getItem("date")
 		// Update formData with total hours
 		const updatedFormData = {
-			userID:id,
+			fullName:fullName,
 			period:date,
 			...formData,
 			hours: [...formData.hours],
@@ -118,6 +118,7 @@ const Row: React.FC = () => {
 					value={formData.task_performed}
 					onChange={(e) => handleTaskChange(e.target.value)}
 					placeholder="Task Performed..."
+					required
 				/>
 
 				<div className="days">
@@ -130,6 +131,7 @@ const Row: React.FC = () => {
 							onChange={(e) =>
 								handleHoursChange(index, parseInt(e.target.value))
 							}
+							required
 						/>
 					))}
 				</div>

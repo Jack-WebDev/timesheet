@@ -5,11 +5,9 @@ import {
 	FaBuilding,
 	FaCalendarCheck,
 	FaTasks,
-	FaDoorOpen,
 } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import Cookies from "js-cookie";
-
 
 import {
 	Popover,
@@ -18,23 +16,28 @@ import {
 } from "@/components/ui/popover";
 
 const Layout = () => {
+	const fullName = localStorage.getItem("user");
 
 	const handleLogout = async () => {
-	
 		Cookies.remove("refreshToken");
 		localStorage.clear();
-	
-	
+
 		window.location.href = "/";
 	};
 	return (
 		<div className="relative">
-			<header className="flex justify-around items-center py-4">
-				<h1>NDT Logo</h1>
+			<header className="flex justify-between ml-8 mr-40 items-center py-4">
+				<NavLink to={"/admin"}>
+					<img
+						src="/ndt-technologies-web-logo.svg"
+						alt=""
+						className="w-[30%]"
+					/>
+				</NavLink>
 				<div className="profile flex items-center gap-x-3">
 					<Popover>
-						<PopoverTrigger className="flex items-center gap-4">
-							Me <FaChevronDown />
+						<PopoverTrigger className="flex items-center gap-4 text-[#d69436]">
+							<b>{fullName}</b> <FaChevronDown />
 						</PopoverTrigger>
 						<PopoverContent className="flex items-center gap-4 w-fit">
 							<NavLink to={"/"} onClick={handleLogout}>
@@ -44,7 +47,7 @@ const Layout = () => {
 					</Popover>
 				</div>
 			</header>
-
+			<hr />
 			<div className="side_menu absolute top-0 left-0 h-screen">
 				<ul className="navMenu grid relative top-1/4 left-1/2 gap-y-4">
 					<NavLink to={"/admin"} className={"flex items-center gap-x-2"}>
@@ -63,7 +66,10 @@ const Layout = () => {
 						<FaCalendarCheck />
 						Projects
 					</NavLink>
-					<NavLink to={"/timesheets"} className={"flex items-center gap-x-2"}>
+					<NavLink
+						to={"/getTimesheets"}
+						className={"flex items-center gap-x-2"}
+					>
 						<FaTasks />
 						Timesheets
 					</NavLink>

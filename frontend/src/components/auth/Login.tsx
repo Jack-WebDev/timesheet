@@ -89,7 +89,7 @@ export function LoginForm() {
 						</FormItem>
 					)}
 				/>
-				<Button type="submit" className="login_btn w-full">
+				<Button type="submit" className="login_btn w-full hover:bg-[#DDA83A]">
 					Let Me In
 				</Button>
 			</form>

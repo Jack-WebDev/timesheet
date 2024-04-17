@@ -80,6 +80,7 @@ export function AddProject() {
 							Department Name
 						</Label>
 						<select name="department" className="focus:border-[#DDA83A]" value={department_id} onChange={(e) => setDepartment_id(e.target.value)}>
+							<option value={""}>Select Department</option>
 							{departments.map((department) => (
 								<option key={department.id} value={department.id}>
 									{department.Department_Name}

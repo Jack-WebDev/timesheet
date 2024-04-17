@@ -1,6 +1,6 @@
 
 import Layout from "@/components/Layout";
-import UserTable from "@/components/tableUI/ProjectTable";
+import ProjectTable from "@/components/tableUI/ProjectTable";
 
 
 const Projects = () => {
@@ -9,7 +9,7 @@ const Projects = () => {
 		<div className="relative">
 			<Layout />
 			<div>
-				<UserTable/>
+				<ProjectTable/>
 			</div>
 		</div>
 	);

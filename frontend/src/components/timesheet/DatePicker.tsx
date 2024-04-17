@@ -14,6 +14,9 @@ const DateRangeSelector: React.FC<DateRangeSelectorProps> = ({ onUpdateDateRange
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
+    
+    // const date = `${startDate} - ${endDate}`
+    // localStorage.setItem("week",date)
 
     // Pass updated date range to parent component
     if (start && end) {

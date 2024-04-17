@@ -55,6 +55,7 @@ const deleteTimesheet = async (req, res) => {
 const updateTimesheet = async (req, res) => {
 	const { id } = req.params;
 	const { approval } = req.body;
+	console.log(approval);
 
 	try {
 		const data = await db("timesheets").select().where({ id: id }).update({
@@ -72,5 +73,5 @@ module.exports = {
 	getTimesheet,
 	createTimesheet,
 	deleteTimesheet,
-	updateTimesheet
+	updateTimesheet,
 };

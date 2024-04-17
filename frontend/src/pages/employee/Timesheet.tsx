@@ -10,19 +10,38 @@ import DateRangeSelector from "@/components/timesheet/DatePicker";
 import { useState } from "react";
 import Card from "@/components/timesheet/Card";
 
+type Timesheet = {
+	Friday: string;
+	Monday: string;
+	Project_Name: string;
+	Task_performed: string;
+	Thursday: string;
+	Total_hours: string;
+	Tuesday: string;
+	Wednesday: string;
+	Week: string;
+	Full_Name: string;
+	id: string;
+	Approval_Status: string;
+};
+
 const Timesheet = () => {
 	const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(
 		new Date()
 	);
-	const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(new Date());
+	const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(
+		new Date()
+	);
+
+
 
 	const handleUpdateDateRange = (startDate: Date, endDate: Date) => {
 		setSelectedStartDate(startDate);
 		setSelectedEndDate(endDate);
-		const week = `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`
+		const week = `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`;
 
-		console.log(week)
-		localStorage.setItem("date", week)
+		console.log(week);
+		localStorage.setItem("date", week);
 	};
 
 	const handleLogout = async () => {
@@ -31,6 +50,8 @@ const Timesheet = () => {
 
 		window.location.href = "/";
 	};
+
+
 	return (
 		<div>
 			<header className="flex justify-around items-center py-4">

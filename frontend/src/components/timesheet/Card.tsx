@@ -13,7 +13,7 @@ const ProjectCard: React.FC = () => {
 	};
 
 	return (
-		<div className="project-card mt-12 border border-black m-auto p-4 rounded-xl">
+		<div className="project-card mt-12 border border-[#dda83a] m-auto p-4 rounded-xl">
 			<div className="flex items-center justify-around">
 				<div>Project</div>
 				<div>Task</div>

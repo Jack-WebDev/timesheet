@@ -3,6 +3,7 @@ import axios from "axios";
 import { EditDepartment } from "../dialogUI/EditDepartment";
 import { AddDepartment } from "../dialogUI/AddDepartment";
 import { FaTrashAlt } from "react-icons/fa";
+import {toast} from "react-toastify"
 
 type Department = {
 	id: string;
@@ -27,14 +28,13 @@ const departmentTable: React.FC = () => {
 			setdepartments(response.data);
 			setfilteredDepartments(response.data);
 		} catch (error) {
-			console.error("Error fetching departments:", error);
+			toast.error("An error occured while fetching departments. Please try again.");
 		}
 	};
 
 	const handleDelete = async (id: any) => {
-		const res = await axios.delete(`api/departments/${id}`);
+		 await axios.delete(`api/departments/${id}`);
 		fetchDepartments();
-		console.log(res);
 	};
 
 	const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,7 +52,7 @@ const departmentTable: React.FC = () => {
 				<input
 					type="text"
 					placeholder="Filter by department..."
-					className="filter_input w-1/2 px-8 border border-black"
+					className="filter_input w-1/2 px-8 border border-black focus:border-[#DDA83A]"
 					value={filter}
 					onChange={handleFilterChange}
 				/>

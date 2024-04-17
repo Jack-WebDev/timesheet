@@ -25,7 +25,7 @@ const DateRangeSelector: React.FC<DateRangeSelectorProps> = ({ onUpdateDateRange
   };
 
   return (
-    <div className="date-range-selector">
+    <div className="date-range-selector mt-[2rem]">
       <DatePicker
         selectsRange
         startDate={startDate}

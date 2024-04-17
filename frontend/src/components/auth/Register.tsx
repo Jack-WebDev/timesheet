@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import axios from "axios";
+import {toast} from "react-toastify"
 
 const formSchema = z.object({
 	email: z.string().min(2, {
@@ -31,10 +32,9 @@ export function RegisterForm() {
 
 	async function onSubmit(values: z.infer<typeof formSchema>) {
 		try {
-			const res = await axios.post("api/users/register", { ...values });
-			console.log(res);
+			await axios.post("api/users/register", { ...values });
 		} catch (error) {
-			console.log(error);
+			toast.error("An error occured while registering. Please try again.")
 		}
 	}
 
@@ -48,7 +48,7 @@ export function RegisterForm() {
 						<FormItem>
 							<FormLabel>Email</FormLabel>
 							<FormControl>
-								<Input placeholder="Enter your email" {...field} />
+								<Input placeholder="Enter your email" {...field} className="rounded-xl hover:border-[#DDA83A]" />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -61,13 +61,13 @@ export function RegisterForm() {
 						<FormItem>
 							<FormLabel>Password</FormLabel>
 							<FormControl>
-								<Input placeholder="Enter your password" {...field}/>
+								<Input placeholder="Enter your password" {...field} className="rounded-xl hover:border-[#DDA83A]"/>
 							</FormControl>
 							<FormMessage />
 						</FormItem>
 					)}
 				/>
-				<Button type="submit" className="register_btn w-full">Let's Go!</Button>
+				<Button type="submit" className="register_btn w-full hover:bg-[#DDA83A]">Let's Go!</Button>
 			</form>
 		</Form>
 	);

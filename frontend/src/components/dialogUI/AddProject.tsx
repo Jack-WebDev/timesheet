@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaPlusCircle } from "react-icons/fa";
+import {toast} from "react-toastify"
 
 type Department = {
 	id: string;
@@ -39,7 +40,7 @@ export function AddProject() {
 			const response = await axios.get<Department[]>("api/departments/");
 			setDepartments(response.data);
 		} catch (error) {
-			console.error("Error fetching departments:", error);
+			toast.error("An error occured while fetching departments. Please reload your page");
 		}
 	};
 

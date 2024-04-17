@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
+import {toast} from "react-toastify"
 
 const formSchema = z.object({
 	email: z.string().min(2, {
@@ -49,7 +50,7 @@ export function LoginForm() {
 				localStorage.setItem("user",fullName );
 			}
 		} catch (error) {
-			console.log(error);
+		 toast.error("An error occured. Please try again")
 		}
 	}
 	if (authenticated) {
@@ -70,7 +71,7 @@ export function LoginForm() {
 						<FormItem>
 							<FormLabel>Email</FormLabel>
 							<FormControl>
-								<Input placeholder="Enter your email" {...field} />
+								<Input placeholder="Enter your email" {...field} className="rounded-xl hover:border-[#DDA83A]" />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -83,7 +84,8 @@ export function LoginForm() {
 						<FormItem>
 							<FormLabel>Password</FormLabel>
 							<FormControl>
-								<Input placeholder="Enter your password" {...field} />
+
+								<Input placeholder="Enter your password" {...field} className="rounded-xl hover:border-[#DDA83A]"  />
 							</FormControl>
 							<FormMessage />
 						</FormItem>

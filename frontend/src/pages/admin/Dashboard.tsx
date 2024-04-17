@@ -11,6 +11,7 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+
 const Dashboard = () => {
 	const [totalUsers, setTotalUsers] = useState<number>(0);
 	const [totalProjects, setTotalProjects] = useState<number>(0);

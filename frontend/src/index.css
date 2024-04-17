@@ -16,6 +16,10 @@
 	background-color: rgba(162, 161, 168, 0.1);
 }
 
+.side_menu a.active {
+	color: var(--primary-color);
+}
+
 .days {
 	width: 70%;
 }
@@ -27,6 +31,10 @@
 .filter_input {
 	border-radius: 0.5rem;
 	padding-block: 0.3rem;
+}
+
+.filter_input:focus {
+	outline: 2px solid var(--primary-color);
 }
 
 .date-range-selector {

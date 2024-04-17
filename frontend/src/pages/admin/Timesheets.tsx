@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Layout from "@/components/Layout";
+import {toast} from "react-toastify"
 
 type Timesheet = {
 	Friday: string;
@@ -18,7 +19,7 @@ type Timesheet = {
 };
 
 const Timesheets = () => {
-	const [timesheets, setTimesheets] = useState<Timesheet[]>([]); // Define a type for timesheets if possible
+	const [timesheets, setTimesheets] = useState<Timesheet[]>([]);
 
 	useEffect(() => {
 		const fetchTimesheets = async () => {
@@ -34,25 +35,28 @@ const Timesheets = () => {
 		fetchTimesheets();
 	}, []);
 
+
+
 	const handleApprove = async (id:string, approval:string) => {
 		try {
-			const res = await axios.put(`api/timesheets/${id}`, {
+			await axios.put(`api/timesheets/${id}`, {
 				approval
 			})
-			console.log(res)
+			toast.success("Timesheet Approved")
 		} catch (error) {
-			console.log(error)
+			toast.error("An error occured while Approving timesheet. Please try again.")
+
 		}
 	}
 
-	const handleReject = async (id:string, status:string) => {
+	const handleReject = async (id:string, approval:string) => {
 		try {
-			const res = await axios.put(`api/timesheets/${id}`, {
-				status
+			await axios.put(`api/timesheets/${id}`, {
+				approval
 			})
-			console.log(res)
+			toast.success("Timesheet Rejected")
 		} catch (error) {
-			console.log(error)
+			toast.error("An error occured while Rejecting timesheet. Please try again.")
 		}
 	}
 
@@ -90,8 +94,8 @@ const Timesheets = () => {
 							</div>
 						
 							<div className="buttons flex items-center gap-x-8">
-							<button type="button" className="bg-[#00ed64] px-4 py-2 rounded-xl" onClick={() => handleApprove(timesheet.id, "Approved")}>Approve</button>
-							<button type="button" className="bg-red-600 text-white px-4 py-2 rounded-xl"  onClick={() => handleReject(timesheet.id, "Rejected")}>Reject</button>
+							<button type="button"  className="bg-[#00ed64] px-4 py-2 rounded-xl" onClick={() => handleApprove(timesheet.id, "Approved")}>Approve</button>
+							<button type="button"  className="bg-red-600 text-white px-4 py-2 rounded-xl"  onClick={() => handleReject(timesheet.id, "Rejected")}>Reject</button>
 
 							</div>
 

@@ -19,10 +19,10 @@
 }
 
 .form__container {
-	/* border: 2px solid #000; */
+	border: 2px solid #dda83a;
 	border-radius: 20px;
 	padding: 4rem;
-	box-shadow: 1px 1px 10px #000;
+    background-color: #fafafa;
 }
 
 input {

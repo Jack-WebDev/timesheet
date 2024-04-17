@@ -3,6 +3,7 @@ import axios from "axios";
 import { EditProject } from "../dialogUI/EditProject";
 import { AddProject } from "../dialogUI/AddProject";
 import { FaTrashAlt } from "react-icons/fa";
+import {toast} from "react-toastify"
 
 type Project = {
 	id: string;
@@ -26,7 +27,7 @@ const ProjectTable: React.FC = () => {
 			setprojects(response.data);
 			setFilteredprojects(response.data);
 		} catch (error) {
-			console.error("Error fetching projects:", error);
+			toast.error("An error occured while fetching projects. Please try again.");
 		}
 	};
 
@@ -50,7 +51,7 @@ const ProjectTable: React.FC = () => {
 				<input
 					type="text"
 					placeholder="Filter by project name..."
-					className="filter_input w-1/2 px-8 border border-black"
+					className="filter_input w-1/2 px-8 border border-black focus:border-[#DDA83A]"
 					value={filter}
 					onChange={handleFilterChange}
 				/>

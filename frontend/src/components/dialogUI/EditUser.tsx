@@ -46,9 +46,10 @@ export function EditUser({ id }: User) {
 				status,
 				role,
 			});
+			toast.success("Data has been updated.")
 		} catch (error) {
 			console.log(error);
-			toast.error("Error saving data");
+			toast.error("An error occured while saving data. Please try again.");
 		}
 	};
 

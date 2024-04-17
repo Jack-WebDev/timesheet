@@ -27,7 +27,7 @@ const Layout = () => {
 	return (
 		<div className="relative">
 			<header className="flex justify-between ml-8 mr-40 items-center py-4">
-				<NavLink to={"/admin"}>
+				<NavLink to={"/admin"} className={"z-10"}>
 					<img
 						src="/ndt-technologies-web-logo.svg"
 						alt=""
@@ -47,7 +47,6 @@ const Layout = () => {
 					</Popover>
 				</div>
 			</header>
-			<hr />
 			<div className="side_menu absolute top-0 left-0 h-screen">
 				<ul className="navMenu grid relative top-1/4 left-1/2 gap-y-4">
 					<NavLink to={"/admin"} className={"flex items-center gap-x-2"}>

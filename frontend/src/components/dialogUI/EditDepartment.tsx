@@ -19,7 +19,6 @@ type User = {
 };
 
 export function EditDepartment({ id }: User) {
-	const [isOpen, setIsOpen] = useState(false);
 	const [department, setDepartment] = useState("");
 
 	useEffect(() => {
@@ -35,11 +34,10 @@ export function EditDepartment({ id }: User) {
 			await axios.put(`api/departments/${id}`, {
 				Department_Name: department,
 			});
-			setIsOpen(false);
 			window.location.reload();
 		} catch (error) {
 			console.log(error);
-			toast.error("Error saving data");
+			toast.error("An error occured while saving data. Please try again.");
 		}
 	};
 

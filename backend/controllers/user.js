@@ -5,7 +5,6 @@ const { comparePassword, hashPassword } = require("../middleware/auth");
 const isValidEmailDomain = require("../utils/validateEmail");
 const jwt = require("jsonwebtoken");
 const validator = require("validator");
-// const { saveRefreshToken } = require("../utils/refreshToken");
 
 const userLogin = async (req, res) => {
 	const { email, password } = req.body;
@@ -18,7 +17,6 @@ const userLogin = async (req, res) => {
 		const user = await db("users").select().where({ Email: email });
 
 		validUser = user[0];
-		console.log(validUser);
 
 		const isPasswordValid = await comparePassword(password, validUser.Password);
 
@@ -50,7 +48,6 @@ const userLogin = async (req, res) => {
 			maxAge: 24 * 60 * 60 * 1000,
 		});
 
-		// saveRefreshToken(db, refresh_token);
 
 		res.json({
 			surname:validUser.Surname,
@@ -67,7 +64,6 @@ const userLogin = async (req, res) => {
 
 const userRegister = async (req, res) => {
 	const { email, password } = req.body;
-	console.log(password);
 
 	if (!isValidEmailDomain(email, "ndt.co.za")) {
 		return res.status(309).json({ message: "Invalid NDT email" });
@@ -79,7 +75,6 @@ const userRegister = async (req, res) => {
 
 	try {
 		const hashedPassword = await hashPassword(password);
-		console.log(hashedPassword);
 		const user = await db("users").where({ email: email }).update({
 			password: hashedPassword,
 		});
@@ -138,7 +133,6 @@ const getUser = async (req, res) => {
 const updateUser = async (req, res) => {
 	const { id } = req.params;
 	const { name, surname, email, department, password, role, status } = req.body;
-	console.log(id, name, surname, email, department, password, role, status);
 
 	try {
 		if (!validator.isStrongPassword(password)) {

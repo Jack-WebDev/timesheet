@@ -39,7 +39,7 @@ export function EditProject({ id }: User) {
 			window.location.reload()
 		} catch (error) {
 			console.log(error)
-			toast.error("Error saving data")
+			toast.error("An error occured while saving data. Please try again.")
 		}
 
 	};

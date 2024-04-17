@@ -15,7 +15,6 @@ import { FaPlusCircle } from "react-icons/fa";
 
 export function AddDepartment() {
 	const [Department_Name, setDepartment_Name] = useState("");
-	const [isOpen, setIsOpen] = useState(false);
 
 
 	const handleSave = async () => {

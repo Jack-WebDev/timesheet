@@ -19,12 +19,11 @@ const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path="/" element={<App />}>
 			<Route index={true} path="/" element={<Login />} />
-			
+
 			<Route path="/admin" element={<Dashboard />} />
 			<Route path="/employee" element={<Timesheet />} />
 
-
-			<Route path="/getTimesheets" element={<Timesheets/>}/>
+			<Route path="/getTimesheets" element={<Timesheets />} />
 			<Route path="/departments" element={<Departments />} />
 			<Route path="/projects" element={<Projects />} />
 			<Route path="/employees" element={<Users />} />
@@ -34,6 +33,6 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
-			<RouterProvider router={router} />
+		<RouterProvider router={router} />
 	</React.StrictMode>
 );

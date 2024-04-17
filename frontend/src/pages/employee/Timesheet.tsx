@@ -33,6 +33,8 @@ const Timesheet = () => {
 		new Date()
 	);
 
+	const name = localStorage.getItem("user")
+
 
 
 	const handleUpdateDateRange = (startDate: Date, endDate: Date) => {
@@ -54,12 +56,12 @@ const Timesheet = () => {
 
 	return (
 		<div>
-			<header className="flex justify-around items-center py-4">
-				<h1>NDT Logo</h1>
+			<header className="flex justify-between items-center py-4 ml-[10rem] mr-[10rem]">
+				<img src="/ndt-technologies-web-logo.svg" alt="" className="w-[7%]" />
 				<div className="profile flex items-center gap-x-3">
 					<Popover>
-						<PopoverTrigger className="flex items-center gap-4">
-							Me <FaChevronDown />
+						<PopoverTrigger className="flex items-center gap-4 text-[#dda83a] font-semibold">
+							{name} <FaChevronDown />
 						</PopoverTrigger>
 						<PopoverContent className="flex items-center gap-4 w-fit">
 							<NavLink to={"/"} onClick={handleLogout}>
@@ -69,6 +71,8 @@ const Timesheet = () => {
 					</Popover>
 				</div>
 			</header>
+
+			<hr/>
 
 			<main>
 				<div className="flex justify-center gap-x-12">

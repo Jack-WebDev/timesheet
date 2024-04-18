@@ -22,6 +22,10 @@ app.use("/api/departments",departmentRouter)
 app.use("/api/projects", projectRouter)
 app.use("/api/timesheets",timesheetRouter)
 
+app.get(("/a"), (req,res) => {
+	res.send("...")
+})
+
 app.listen(PORT, () => {
 	console.log(`Server running on port: ${PORT}`);
 });

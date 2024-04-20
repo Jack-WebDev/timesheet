@@ -42,7 +42,7 @@ const Timesheets = () => {
 			await axios.put(`api/timesheets/${id}`, {
 				approval
 			})
-			toast.success("Timesheet Approved")
+			window.location.reload()
 		} catch (error) {
 			toast.error("An error occured while Approving timesheet. Please try again.")
 
@@ -54,7 +54,7 @@ const Timesheets = () => {
 			await axios.put(`api/timesheets/${id}`, {
 				approval
 			})
-			toast.success("Timesheet Rejected")
+			window.location.reload()
 		} catch (error) {
 			toast.error("An error occured while Rejecting timesheet. Please try again.")
 		}

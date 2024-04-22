@@ -17,7 +17,6 @@ const getDepartments = async (req, res) => {
 
 const createDepartment = async (req, res) => {
 	const { Department_Name } = req.body;
-	
 
 	try {
 		const deparName = await db("departments").insert({

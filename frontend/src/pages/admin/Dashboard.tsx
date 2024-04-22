@@ -16,7 +16,7 @@ const Dashboard = () => {
 	const [totalUsers, setTotalUsers] = useState<number>(0);
 	const [totalProjects, setTotalProjects] = useState<number>(0);
 	const [totalDepartments, setTotalDepartments] = useState<number>(0);
-	const [totalTimesheets, setTotalTimesheets] = useState<number>(0);
+	const [timesheets, setTimesheets] = useState<string[]>([]);
 
 	useEffect(() => {
 		getUsers();
@@ -43,8 +43,13 @@ const Dashboard = () => {
 	const getTimesheets = async () => {
 		const res = await axios.get("api/timesheets/");
 		const timesheets = res.data;
-		setTotalTimesheets(timesheets.length);
+		setTimesheets(timesheets);
+		console.log(timesheets.Approval_status)
 	};
+
+	const countPendingTimesheets = () => {
+		return timesheets.filter((timesheet:any) => timesheet.Approval_Status === 'Pending').length;
+	  };
 
 	return (
 		<div className="relative h-screen">
@@ -102,7 +107,7 @@ const Dashboard = () => {
 							</CardTitle>
 						</CardHeader>
 						<CardContent>
-							<h2 className="font-semibold">{totalTimesheets}</h2>
+							<h2 className="font-semibold">{countPendingTimesheets()}</h2>
 						</CardContent>
 
 					</Card>
